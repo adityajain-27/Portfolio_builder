@@ -1,2 +1,22 @@
 .venv
 .env
+
+# Python Cache (Compiled bytecode)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest (Testing cache)
+.pytest_cache/
+
+# Local Databases (Never commit your local database!)
+*.db
+*.sqlite3
+sql_app.db
+
+# IDEs
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
