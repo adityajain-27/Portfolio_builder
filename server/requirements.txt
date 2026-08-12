@@ -6,3 +6,5 @@ google-auth
 pydantic
 pydantic-settings
 motor
+dnspython
+passlib[bcrypt]
