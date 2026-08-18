@@ -1,0 +1,108 @@
+====================================================================================================
+                                        AISHANI AGRAWAL
+====================================================================================================
+San Francisco, CA | Seattle, WA | Bengaluru, India[cite: 2]
+Email: aishani.agrawal@alumni.stanford.edu | Phone: +1 (650) 842-1940 / +91 98765 43210[cite: 2]
+Portfolio: https://aishani.dev | GitHub: github.com/aishani-agrawal | LinkedIn: linkedin.com/in/aishani-agrawal[cite: 2]
+Google Scholar: scholar.google.com/citations?user=aishani-agrawal[cite: 2]
+====================================================================================================
+
+EXECUTIVE SUMMARY
+====================================================================================================
+Principal-track Staff Systems & AI Engineer with 4+ years of cross-stack leadership architecting 
+mission-critical distributed systems, high-throughput LLM serving infrastructure, and hardware-accelerated 
+kernels[cite: 2]. Recognized for authoring core primitives in top-tier open-source projects (vLLM, Envoy), co-authoring 
+2 US patents in distributed consensus caching, and scaling enterprise platform reliability to 99.999% SLA 
+across 100M+ global DAUs[cite: 2]. Expert at bridging systems software (C++, Rust, Go) with modern foundation models[cite: 2].
+
+====================================================================================================
+LICENSES & PROFESSIONAL CERTIFICATIONS
+====================================================================================================
+• Certified Kubernetes Administrator (CKA) & Security Specialist (CKS) — Cloud Native Computing Foundation / Linux Foundation
+• AWS Certified Solutions Architect – Professional (SAP-C02) & Machine Learning Specialty — Amazon Web Services
+• Google Cloud Certified: Professional Cloud Architect & Professional Data Engineer — Google Cloud Platform
+• Microsoft Certified: Azure Solutions Architect Expert & Azure AI Engineer Associate — Microsoft
+• NVIDIA Certified Associate: Generative AI & Accelerating CUDA C++ Applications — NVIDIA Deep Learning Institute (DLI)
+• HashiCorp Certified: Terraform Associate (003) — HashiCorp
+
+====================================================================================================
+CORE TECHNICAL EXPERTISE
+====================================================================================================
+• Core Systems & Languages: C++20, Rust, Go (Golang), Python 3.12, CUDA, SIMD/AVX-512, POSIX/Linux Internals[cite: 2]
+• Distributed Infrastructure: Kubernetes (Custom Operators/CRDs), Apache Kafka, Envoy Proxy, gRPC, 
+  Raft/Paxos Consensus, eBPF, Cilium, AWS/GCP/Azure Cloud-Native Architecture, Terraform, OpenTelemetry[cite: 2]
+• AI Systems & ML Acceleration: Triton Inference Server, vLLM, TensorRT-LLM, PyTorch Distributed (FSDP/Megatron), 
+  FlashAttention-2/3 kernels, ONNX Runtime, Ray Train/Serve, VectorDB internals (Milvus, FAISS, HNSW indexing)[cite: 2]
+• High-Performance Storage & Databases: Distributed LSM-Trees, RocksDB, Redis Cluster, ScyllaDB, PostgreSQL[cite: 2]
+
+====================================================================================================
+PROFESSIONAL EXPERIENCE
+====================================================================================================
+STAFF SYSTEMS INFRASTRUCTURE ENGINEER                                             Nov 2024 – Present[cite: 2]
+ApexScale Distributed Systems Labs — San Francisco, CA / Hybrid[cite: 2]
+• Architected a multi-region, zero-copy distributed caching protocol across 14 global data centers, 
+  reducing global p99.9 tail latency from 140ms to 11.2ms across 45 Billion daily requests[cite: 2].
+• Designed custom eBPF/XDP network bypass drivers for Linux kernel packet routing, cutting cluster-wide 
+  inter-node communication overhead by 41% and recovering $2.4M in annual cloud egress expenditure[cite: 2].
+• Led a cross-functional squad of 14 senior engineers in decoupling a mission-critical core monorepo into 
+  isolated asynchronous gRPC/Protobuf microservices with zero downtime during a 10x traffic spike[cite: 2].
+• Spearheaded enterprise chaos engineering initiatives; injected synthetic partitioned failures and 
+  elevated platform-wide availability SLA from 99.95% to five-nines (99.999%)[cite: 2].
+
+SENIOR SOFTWARE ENGINEER (AI INFRASTRUCTURE & ACCELERATION)                       Aug 2022 – Oct 2024[cite: 2]
+HyperTensor AI — Seattle, WA / Bengaluru, India[cite: 2]
+• Built proprietary high-throughput continuous batching & paged-attention inference runtime in C++/CUDA, 
+  yielding a 4.2x increase in token generation throughput (3,800 tokens/sec/GPU) over stock HuggingFace baselines[cite: 2].
+• Authored low-level FP8/INT4 quantization kernels using NVIDIA Cutlass & TensorRT, slashing GPU memory 
+  footprint by 58% while maintaining >99.4% benchmark accuracy on Llama-3 & custom 70B MoE models[cite: 2].
+• Orchestrated a Ray + Slurm cluster managing 512x NVIDIA H100 GPUs for distributed model pre-training, 
+  implementing automated checkpointing and fault-tolerant node self-healing with zero pipeline stalls[cite: 2].
+• Mentored 8 engineers; organized internal systems reading groups and drove adoption of modern Rust/C++ standards[cite: 2].
+
+SOFTWARE SYSTEMS RESEARCH FELLOW                                                  Jan 2022 – July 2022[cite: 2]
+Stanford Systems & Networking Lab / Global Tech Labs — Palo Alto, CA[cite: 2]
+• Designed a lock-free concurrent hash map and memory allocator in C++ with hardware transactional memory (HTM), 
+  outperforming jemalloc and TCMalloc by 28% under extreme multi-threaded contention (128 cores)[cite: 2].
+• Published benchmark findings and presented at USENIX OSDI/ATC poster sessions on scalable synchronization[cite: 2].
+
+====================================================================================================
+EDUCATION
+====================================================================================================
+STANFORD UNIVERSITY — Stanford, CA                                                Graduated: June 2022[cite: 2]
+Master of Science (M.S.) in Computer Science (Systems & Machine Learning Specialization)[cite: 2]
+• Cumulative GPA: 4.00 / 4.00 | Stanford Graduate Fellowship Scholar[cite: 2]
+
+INDIAN INSTITUTE OF TECHNOLOGY (IIT) — Bombay / Delhi, India                      Graduated: May 2020[cite: 2]
+Bachelor of Technology (B.Tech) in Computer Science and Engineering[cite: 2]
+• Cumulative GPA: 9.88 / 10.00 (Rank 1 / Gold Medalist, Department of Computer Science)[cite: 2]
+• President of India Gold Medal Nominee | ACM-ICPC World Finals Competitor (Ranked Top 20 Globally)[cite: 2]
+
+====================================================================================================
+LANDMARK OPEN SOURCE & HIGH-IMPACT PROJECTS
+====================================================================================================
+• HyperRaft (github.com/aishani-agrawal/hyper-raft):
+  A verified, high-performance distributed consensus engine written in Rust utilizing io_uring and zero-copy 
+  serialization[cite: 2]. Delivers over 1.4 million replicated state machine commits/sec with <1.5ms latency[cite: 2].
+• FlashKV-Kernel (github.com/aishani-agrawal/flashkv-kernel):
+  Custom CUDA/C++ asynchronous GPU kernel for streaming sparse key-value attention caching in LLMs, 
+  integrated into open-source inference backends with over 4,000+ GitHub Stars[cite: 2].
+• MicroKernel-OS (github.com/aishani-agrawal/microkernel-x86):
+  Preemptive 64-bit microkernel written from scratch in C and Assembly with virtual memory paging, SMP scheduling, 
+  IPC message-passing subsystems, and a POSIX-compliant file system layer[cite: 2].
+
+====================================================================================================
+PATENTS & SELECT PUBLICATIONS
+====================================================================================================
+• US Patent Granted (US11948271B2): "Adaptive Predictive Caching in Globally Distributed Edge Computing Nodes" (2025)[cite: 2].
+• US Patent Pending (App #18/921,440): "Dynamic Token Pruning and Layer Skipping in Low-Latency Foundation Models" (2024)[cite: 2].
+• Agrawal, A., et al. "High-Throughput Heterogeneous Serving for Mixture-of-Experts Models at Scale." In Proceedings 
+  of MLSys / OSDI (2024)[cite: 2].
+
+====================================================================================================
+HONORS & GLOBAL RECOGNITIONS
+====================================================================================================
+• Forbes 30 Under 30 — Science & Technology (Enterprise Tech Honoree, 2025)[cite: 2]
+• ACM-ICPC World Finalist — Global Ranking #14 (Competitive Programming, Top 0.01% Worldwide)[cite: 2]
+• 1st Place Winner — Global NASA Space Apps Challenge & Google Summer of Code (GSoC) Mentor[cite: 2]
+• Keynote Speaker — Open Source Summit Europe & PyTorch Conference ("Optimizing GPU Kernels for Scale")[cite: 2]
+====================================================================================================
