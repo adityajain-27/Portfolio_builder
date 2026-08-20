@@ -19,4 +19,5 @@ sql_app.db
 .idea/
 
 # OS generated files
-.DS_Store
+.DS_Storeserver/.run_logs/
+.run_logs/
