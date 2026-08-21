@@ -3,3 +3,10 @@
 __pycache__/
 *.py[cod]
 *.log
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.vite/
