@@ -3,3 +3,5 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+resume-studio/node_modules/
+resume-studio/dist/

@@ -31,3 +31,30 @@ async def get_saved_resume_by_id(db, resume_id: str, user_id: str) -> dict | Non
     if resume:
         resume["id"] = str(resume["_id"])
     return resume
+
+
+async def update_saved_resume(
+    db, resume_id: str, user_id: str, resume_data: dict, google_doc_url: str, download_url: str
+) -> dict | None:
+    # In-place update — this is what "Edit" on the dashboard should do instead
+    # of quietly creating a duplicate document every time someone saves again.
+    result = await db["saved_resumes"].find_one_and_update(
+        {"_id": ObjectId(resume_id), "user_id": ObjectId(user_id)},
+        {
+            "$set": {
+                "data": resume_data,
+                "google_doc_url": google_doc_url,
+                "download_url": download_url,
+                "updated_at": datetime.now(timezone.utc),
+            }
+        },
+        return_document=True,
+    )
+    if result:
+        result["id"] = str(result["_id"])
+    return result
+
+
+async def delete_saved_resume(db, resume_id: str, user_id: str) -> bool:
+    result = await db["saved_resumes"].delete_one({"_id": ObjectId(resume_id), "user_id": ObjectId(user_id)})
+    return result.deleted_count > 0
