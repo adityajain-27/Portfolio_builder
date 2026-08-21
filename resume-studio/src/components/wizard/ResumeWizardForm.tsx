@@ -62,7 +62,7 @@ export function ResumeWizardForm({ initialData, eyebrow, heading, reviewNote, re
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-12 lg:grid-cols-[1fr_420px] lg:px-10">
+    <div className="mx-auto grid w-full max-w-[1680px] grid-cols-1 gap-10 px-6 py-10 lg:grid-cols-[1.1fr_1fr] lg:px-12 lg:py-14 xl:px-16">
       <div>
         <p className="eyebrow mb-2">{eyebrow}</p>
         <h1 className="mb-8 font-display text-2xl font-semibold text-slate-bright">{heading}</h1>
