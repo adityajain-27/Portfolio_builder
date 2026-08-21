@@ -137,15 +137,17 @@ function doPost(e) {
       }
     }
 
-    // ── Contact links: fixed labels, hyperlinked to the real URL/target ──
+    // ── Contact links ──
+    // Phone/Email: show the real value as plain text (no hyperlink).
+    // LinkedIn/GitHub: keep the fixed label text, hyperlinked to the real URL.
     var contact = data.contact || {};
     if (contact.phone) {
-      linkFixedLabel(body, 'Phone', 'tel:' + contact.phone.replace(/[^0-9+]/g, ''));
+      replaceTextOccurrence(body, 'Phone', contact.phone);
     } else {
       removeTextOccurrence(body, 'Phone');
     }
     if (contact.email) {
-      linkFixedLabel(body, 'Email', 'mailto:' + contact.email);
+      replaceTextOccurrence(body, 'Email', contact.email);
     } else {
       removeTextOccurrence(body, 'Email');
     }
@@ -275,6 +277,18 @@ function removeTextOccurrence(body, labelText) {
   if (found) {
     var el = found.getElement().asText();
     el.deleteText(found.getStartOffset(), found.getEndOffsetInclusive());
+  }
+}
+
+// Replaces the first occurrence of a fixed label with the real value, as
+// plain text (no hyperlink) — used for Phone/Email, which should display
+// the actual number/address rather than staying as a clickable label.
+function replaceTextOccurrence(body, labelText, value) {
+  var found = body.findText(labelText);
+  if (found) {
+    var el = found.getElement().asText();
+    el.deleteText(found.getStartOffset(), found.getEndOffsetInclusive());
+    el.insertText(found.getStartOffset(), value);
   }
 }
 
