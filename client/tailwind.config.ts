@@ -7,8 +7,8 @@ export default {
     extend: {
       colors: {
         canvas: {
-          DEFAULT: "#FAF9F4",
-          soft: "#F3F1E9",
+          DEFAULT: "#FFFFFF",
+          soft: "#F6F6F3",
         },
         ink: {
           DEFAULT: "#181B22",
@@ -58,10 +58,26 @@ export default {
           "0%,100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "drift": {
+          "0%,100%": { transform: "translate(0,0) scale(1)" },
+          "33%": { transform: "translate(20px,-25px) scale(1.05)" },
+          "66%": { transform: "translate(-15px,15px) scale(0.97)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(360deg)" },
+        },
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "type-settle": "type-settle 0.35s ease-out",
         "float-slow": "float-slow 6s ease-in-out infinite",
+        "drift": "drift 14s ease-in-out infinite",
+        "drift-slow": "drift 20s ease-in-out infinite",
+        "marquee": "marquee 28s linear infinite",
       },
     },
   },

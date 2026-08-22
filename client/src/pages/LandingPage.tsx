@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FileText,
   Sparkles,
@@ -9,9 +9,6 @@ import {
   ArrowRight,
   UserCircle2,
   FileEdit,
-  PenSquare,
-  Eye,
-  Download,
   LayoutTemplate,
   ListChecks,
   Lock,
@@ -19,117 +16,14 @@ import {
 import { GateModal } from "@/components/GateModal";
 import { Button } from "@/components/ui/Button";
 import { useGateStore } from "@/store/gateStore";
-import { FullResumeShowcase } from "@/components/landing/FullResumeShowcase";
-import { FAQSection } from "@/components/landing/FAQSection";
+import { FloatingBlobs } from "@/components/landing/FloatingBlobs";
+import { Hero3DStack } from "@/components/landing/Hero3DStack";
+import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
+import { WhatsInside } from "@/components/landing/WhatsInside";
 import { TemplateGallery } from "@/components/landing/TemplateGallery";
-
-const DEMO_PERSONAS = [
-  {
-    name: "Aditya Sharma",
-    role: "Full-Stack Engineer",
-    summary: "Full-stack engineer focused on shipping fast, reliable product surfaces end to end.",
-    section: "Experience",
-    entry: "Senior Developer — Devnovate",
-    date: "2024 — Present",
-    bullets: [
-      "Led migration to a service-oriented backend, cutting p95 latency 40%.",
-      "Shipped a design system used across 6 product teams.",
-      "Mentored 3 junior engineers through their first production releases.",
-    ],
-  },
-  {
-    name: "Meher Kaur",
-    role: "Product Designer",
-    summary: "Product designer who turns fuzzy problems into shipped, measurable design work.",
-    section: "Projects",
-    entry: "Studio — Design system for a fintech app",
-    date: "React · Figma",
-    bullets: [
-      "Cut onboarding drop-off by 22% through a redesigned flow.",
-      "Built and documented a 40-component design system.",
-      "Ran 15+ user interviews to validate the new IA.",
-    ],
-  },
-];
-
-function DocShowcase() {
-  const [personaIdx, setPersonaIdx] = useState(0);
-  const [lineIdx, setLineIdx] = useState(0);
-  const persona = DEMO_PERSONAS[personaIdx];
-  const totalLines = 4 + persona.bullets.length;
-
-  useEffect(() => {
-    if (lineIdx < totalLines) {
-      const t = setTimeout(() => setLineIdx((v) => v + 1), 360);
-      return () => clearTimeout(t);
-    }
-    const t = setTimeout(() => {
-      setPersonaIdx((v) => (v + 1) % DEMO_PERSONAS.length);
-      setLineIdx(0);
-    }, 2400);
-    return () => clearTimeout(t);
-  }, [lineIdx, totalLines]);
-
-  return (
-    <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-ink-line bg-white shadow-card">
-      <div className="h-[3px] w-full bg-gradient-to-r from-cobalt via-cobalt-soft to-gold" />
-      <div className="flex items-center justify-between border-b border-ink-line px-5 py-3">
-        <span className="eyebrow">Live Preview</span>
-        <span className="flex items-center gap-1.5 rounded-full border border-ink-line bg-canvas px-2.5 py-1 font-mono text-[10px] tracking-wide text-slate">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cobalt/50" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cobalt" />
-          </span>
-          Live
-        </span>
-      </div>
-
-      <div className="bg-canvas-soft p-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={personaIdx}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="paper-surface min-h-[420px] rounded-sm p-8 font-doc text-[12px] leading-relaxed text-ink/85"
-          >
-            {lineIdx >= 1 && (
-              <div className="animate-type-settle text-center">
-                <h3 className="text-lg font-bold text-ink">{persona.name}</h3>
-                <p className="mt-0.5 text-[11px] text-ink/60">{persona.role}</p>
-              </div>
-            )}
-            {lineIdx >= 2 && (
-              <div className="animate-type-settle mt-4">
-                <p className="border-b border-ink/25 pb-0.5 text-[12px] font-bold text-ink">Summary</p>
-                <p className="mt-1.5 italic text-ink/75">{persona.summary}</p>
-              </div>
-            )}
-            {lineIdx >= 3 && (
-              <div className="animate-type-settle mt-4">
-                <p className="border-b border-ink/25 pb-0.5 text-[12px] font-bold text-ink">{persona.section}</p>
-                <div className="mt-1.5 flex items-baseline justify-between">
-                  <span className="font-bold text-ink">{persona.entry}</span>
-                  <span className="font-bold text-ink/60">{persona.date}</span>
-                </div>
-              </div>
-            )}
-            <ul className="ml-4 mt-1.5 list-disc space-y-1 text-ink/75">
-              {persona.bullets.map(
-                (b, i) =>
-                  lineIdx >= 4 + i && (
-                    <motion.li key={i} initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }}>
-                      {b}
-                    </motion.li>
-                  )
-              )}
-            </ul>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
+import { FullResumeShowcase } from "@/components/landing/FullResumeShowcase";
+import { WhoItsFor } from "@/components/landing/WhoItsFor";
+import { FinalCTA } from "@/components/landing/FinalCTA";
 
 const FACTS = [
   { icon: ListChecks, value: "6", label: "structured sections, always in the right order" },
@@ -153,7 +47,9 @@ export function LandingPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-white">
+      <FloatingBlobs />
+
       <header className="relative z-20 flex items-center justify-between px-6 py-6 sm:px-10">
         <div className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright">
           <FileText size={18} className="text-cobalt" />
@@ -172,7 +68,7 @@ export function LandingPage() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 pb-16 pt-6 sm:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 lg:pt-16">
+      <main className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 pb-16 pt-6 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-6 lg:pt-14">
         <div className="max-w-xl">
           <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
             Resume Studio · Document Generation
@@ -247,55 +143,25 @@ export function LandingPage() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="flex justify-center lg:justify-end"
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <div className="w-full max-w-xl animate-float-slow">
-            <DocShowcase />
-          </div>
+          <Hero3DStack />
         </motion.div>
       </main>
 
-      <section className="relative z-10 mx-auto max-w-5xl px-6 pb-24 sm:px-10">
-        <p className="eyebrow mb-3 text-center">How it works</p>
-        <h2 className="text-center font-display text-2xl font-semibold text-slate-bright">
-          Three steps. One clean document.
-        </h2>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {[
-            { icon: PenSquare, title: "Fill the form", desc: "Guided steps for basics, experience, projects, and skills — nothing extra." },
-            { icon: Eye, title: "Watch it typeset", desc: "A live preview updates as you type, laid out exactly like the final document." },
-            { icon: Download, title: "Export instantly", desc: "One click generates a real Google Doc and a downloadable PDF, ready to send." },
-          ].map(({ icon: Icon, title, desc }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.08 * i }}
-              className="rounded-2xl border border-ink-line bg-white p-6 shadow-card transition-transform duration-300 hover:-translate-y-1"
-            >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-cobalt/30 bg-cobalt/10 text-cobalt">
-                <Icon size={17} />
-              </div>
-              <h3 className="font-display text-base font-semibold text-slate-bright">{title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-slate">{desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      <MarqueeStrip />
 
+      <WhatsInside />
       <TemplateGallery />
       <FullResumeShowcase />
-      <FAQSection />
+      <WhoItsFor />
+      <FinalCTA onEnter={() => goTo("/enter")} onGuest={() => goTo("/guest/build")} />
 
       <footer className="relative z-10 border-t border-ink-line px-6 py-8 text-center text-xs text-slate sm:px-10">
         SkillCred — private resume studio.
       </footer>
-
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-grain" />
 
       <GateModal
         open={gateOpen}
