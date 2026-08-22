@@ -1,44 +1,48 @@
 /* ==========================================================================
    PortGen — Upload Page Styles
-   Premium dark theme with glassmorphism, gradients, and micro-animations
+   Light, minimalist, professional theme
    ========================================================================== */
 
 
 /* ----- CSS Variables ----- */
 
 :root {
-    --bg-primary: #06060b;
-    --bg-secondary: #0d0d15;
-    --bg-card: rgba(15, 15, 25, 0.75);
-    --bg-card-border: rgba(255, 255, 255, 0.06);
+    --bg-primary: #f7f9fb;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-border: #e7ebf0;
 
-    --surface: rgba(255, 255, 255, 0.03);
-    --surface-hover: rgba(255, 255, 255, 0.06);
+    --surface: #f1f4f8;
+    --surface-hover: #e8edf2;
 
-    --text-primary: #f0f0f5;
-    --text-secondary: #8a8a9a;
-    --text-muted: #55556a;
+    --text-primary: #101828;
+    --text-secondary: #5b6472;
+    --text-muted: #97a1ae;
 
     --accent: #0d8078;
-    --accent-light: #10a89e;
-    --accent-glow: rgba(13, 128, 120, 0.25);
+    --accent-light: #0aa89c;
+    --accent-glow: rgba(13, 128, 120, 0.14);
 
     --gradient-start: #0d8078;
     --gradient-end: #06b6a0;
 
-    --danger: #ef4444;
-    --danger-bg: rgba(239, 68, 68, 0.08);
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
 
-    --success: #22c55e;
-    --success-bg: rgba(34, 197, 94, 0.08);
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
 
-    --warning: #f59e0b;
-    --warning-bg: rgba(245, 158, 11, 0.08);
+    --warning: #b45309;
+    --warning-bg: #fffbeb;
 
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
     --radius-xl: 24px;
+
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+    --shadow-md: 0 4px 16px rgba(16, 24, 40, 0.06);
+    --shadow-lg: 0 20px 48px rgba(16, 24, 40, 0.08);
 
     --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -73,28 +77,21 @@ body {
 
 .ambient-glow {
     position: fixed;
-    top: -200px;
+    top: -220px;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
-    height: 600px;
+    width: 900px;
+    height: 620px;
     background: radial-gradient(ellipse at center,
-            rgba(13, 128, 120, 0.12) 0%,
-            rgba(6, 182, 160, 0.05) 40%,
-            transparent 70%);
+            rgba(13, 128, 120, 0.07) 0%,
+            rgba(6, 182, 160, 0.03) 40%,
+            transparent 72%);
     pointer-events: none;
     z-index: 0;
 }
 
 .grid-overlay {
-    position: fixed;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 64px 64px;
-    pointer-events: none;
-    z-index: 0;
+    display: none;
 }
 
 
@@ -112,18 +109,55 @@ body {
     align-items: center;
 }
 
+/* Wraps hero + upload card. On mobile this is a no-op so the
+   stacked order/appearance stays exactly as-is. */
+.content-grid {
+    display: contents;
+    width: 100%;
+}
+
 
 /* ----- Header ----- */
 
 .site-header {
     width: 100%;
     margin-bottom: 48px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .brand {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+
+/* ----- Header Accent (small animated spark, replaces the old badge) ----- */
+
+.header-accent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    animation: spark-pulse 2.6s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes spark-pulse {
+
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(0.85) rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05) rotate(20deg);
+    }
 }
 
 .brand-icon {
@@ -135,7 +169,7 @@ body {
     border-radius: var(--radius-sm);
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     color: white;
-    box-shadow: 0 4px 16px var(--accent-glow);
+    box-shadow: 0 4px 14px var(--accent-glow);
 }
 
 .brand-name {
@@ -149,45 +183,307 @@ body {
 /* ----- Hero Section ----- */
 
 .hero-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 32px;
     margin-bottom: 40px;
 }
 
-.badge {
-    display: inline-flex;
+.hero-copy {
+    width: 100%;
+}
+
+.hero-visual {
+    width: 100%;
+    max-width: 320px;
+}
+
+.portfolio-mock {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 380 / 340;
+}
+
+
+/* ----- Mock Card ----- */
+
+.mock-card {
+    position: absolute;
+    top: 14%;
+    left: 15%;
+    width: 66%;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 16px;
+    z-index: 2;
+}
+
+.mock-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.mock-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+}
+
+.mock-id {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.mock-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.mock-role {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.mock-available {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--success);
+    white-space: nowrap;
+}
+
+.mock-skills {
+    position: relative;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--bg-card-border);
+}
+
+.mock-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 10px;
+}
+
+.mock-skill-row {
+    display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px;
-    border-radius: 100px;
+    margin-bottom: 8px;
+}
+
+.mock-skill-name {
+    font-size: 10px;
+    color: var(--text-secondary);
+    width: 66px;
+    flex-shrink: 0;
+}
+
+.mock-bar {
+    flex: 1;
+    height: 5px;
+    border-radius: 999px;
     background: var(--surface);
-    border: 1px solid var(--bg-card-border);
-    font-size: 12px;
+    overflow: hidden;
+}
+
+.mock-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    transform-origin: left;
+    animation: bar-grow 1.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.mock-bar-fill-1 {
+    width: 90%;
+}
+
+.mock-bar-fill-2 {
+    width: 95%;
+    animation-delay: 0.15s;
+}
+
+@keyframes bar-grow {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.mock-skill-pct {
+    font-size: 10px;
     font-weight: 600;
-    color: var(--accent-light);
-    margin-bottom: 24px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    width: 26px;
+    flex-shrink: 0;
+    text-align: right;
 }
 
-.badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-light);
-    animation: pulse-dot 2s ease-in-out infinite;
+.mock-live-edit {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: var(--text-primary);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
 }
 
-@keyframes pulse-dot {
+.mock-project-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mock-project-thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    flex-shrink: 0;
+}
+
+.mock-project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.mock-project-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mock-project-sub {
+    font-size: 9.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+
+/* ----- Floating Chips ----- */
+
+.float-chip {
+    position: absolute;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    animation: chip-float 5.5s ease-in-out infinite;
+}
+
+.chip-ai {
+    top: 0%;
+    left: 0%;
+    animation-delay: 0s;
+}
+
+.chip-skills {
+    top: 4%;
+    right: 0%;
+    animation-delay: 0.9s;
+}
+
+.chip-ready {
+    top: 42%;
+    right: -8%;
+    animation-delay: 1.8s;
+}
+
+.chip-experience {
+    top: 78%;
+    right: -2%;
+    animation-delay: 2.7s;
+}
+
+.chip-verified {
+    top: 88%;
+    left: -4%;
+    animation-delay: 3.6s;
+}
+
+@keyframes chip-float {
 
     0%,
     100% {
-        opacity: 0.5;
-        transform: scale(0.9);
+        transform: translateY(0);
     }
 
     50% {
-        opacity: 1;
-        transform: scale(1.2);
+        transform: translateY(-8px);
+    }
+}
+
+.float-dot {
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
+    animation: spark-pulse 2.6s ease-in-out infinite;
+}
+
+.dot-orange {
+    top: 4%;
+    left: 46%;
+    width: 10px;
+    height: 10px;
+    background: #f59e0b;
+    animation-delay: 0.4s;
+}
+
+.dot-teal {
+    top: 92%;
+    left: 34%;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    animation-delay: 1.4s;
+}
+
+@media (max-width: 480px) {
+    .float-chip {
+        font-size: 9.5px;
+        padding: 6px 10px;
+        gap: 4px;
     }
 }
 
@@ -201,7 +497,7 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #34d399);
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #059669);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -224,11 +520,7 @@ body {
     border: 1px solid var(--bg-card-border);
     border-radius: var(--radius-xl);
     padding: 32px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.03),
-        0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-lg);
 }
 
 
@@ -266,16 +558,16 @@ body {
 }
 
 .mode-btn.active {
-    background: rgba(13, 128, 120, 0.12);
-    color: var(--accent-light);
-    box-shadow: 0 2px 8px rgba(13, 128, 120, 0.1);
+    background: #ffffff;
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
 }
 
 
 /* ----- Drop Zone ----- */
 
 .drop-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.08);
+    border: 2px dashed var(--bg-card-border);
     border-radius: var(--radius-lg);
     padding: 48px 24px;
     text-align: center;
@@ -283,6 +575,7 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    background: var(--bg-secondary);
 }
 
 .drop-zone::before {
@@ -298,7 +591,7 @@ body {
 }
 
 .drop-zone:hover {
-    border-color: rgba(13, 128, 120, 0.3);
+    border-color: rgba(13, 128, 120, 0.35);
 }
 
 .drop-zone:hover::before {
@@ -307,7 +600,7 @@ body {
 
 .drop-zone.drag-over {
     border-color: var(--accent-light);
-    background: rgba(13, 128, 120, 0.05);
+    background: rgba(13, 128, 120, 0.04);
 }
 
 .drop-zone.drag-over::before {
@@ -316,7 +609,7 @@ body {
 
 .drop-zone.drag-over .drop-icon {
     transform: translateY(-4px) scale(1.1);
-    color: var(--accent-light);
+    color: var(--accent);
 }
 
 .drop-zone-content {
@@ -367,7 +660,7 @@ body {
     justify-content: center;
     border-radius: var(--radius-sm);
     background: rgba(13, 128, 120, 0.1);
-    color: var(--accent-light);
+    color: var(--accent);
     flex-shrink: 0;
 }
 
@@ -424,9 +717,9 @@ textarea {
     width: 100%;
     min-height: 240px;
     padding: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.06);
+    border: 2px solid var(--bg-card-border);
     border-radius: var(--radius-lg);
-    background: var(--surface);
+    background: var(--bg-secondary);
     color: var(--text-primary);
     font-family: "Inter", sans-serif;
     font-size: 14px;
@@ -441,7 +734,7 @@ textarea::placeholder {
 }
 
 textarea:focus {
-    border-color: rgba(13, 128, 120, 0.4);
+    border-color: rgba(13, 128, 120, 0.45);
     box-shadow: 0 0 0 4px rgba(13, 128, 120, 0.08);
 }
 
@@ -484,19 +777,19 @@ textarea:focus {
 .status-area.error {
     background: var(--danger-bg);
     color: var(--danger);
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.15);
 }
 
 .status-area.success {
     background: var(--success-bg);
     color: var(--success);
-    border: 1px solid rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(22, 163, 74, 0.15);
 }
 
 .status-area.info {
     background: var(--warning-bg);
     color: var(--warning);
-    border: 1px solid rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(180, 83, 9, 0.15);
 }
 
 .status-icon {
@@ -522,6 +815,7 @@ textarea:focus {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 8px 20px var(--accent-glow);
 }
 
 .generate-btn::before {
@@ -530,7 +824,7 @@ textarea:focus {
     inset: 0;
     background: linear-gradient(135deg,
             transparent 25%,
-            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.16) 50%,
             transparent 75%);
     background-size: 200% 200%;
     animation: shimmer 3s ease-in-out infinite;
@@ -548,7 +842,7 @@ textarea:focus {
 
 .generate-btn:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px var(--accent-glow);
+    box-shadow: 0 10px 26px var(--accent-glow);
 }
 
 .generate-btn:active:not(:disabled) {
@@ -573,7 +867,7 @@ textarea:focus {
 .spinner {
     width: 18px;
     height: 18px;
-    border: 2.5px solid rgba(255, 255, 255, 0.25);
+    border: 2.5px solid rgba(255, 255, 255, 0.35);
     border-top-color: white;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
@@ -617,7 +911,7 @@ textarea:focus {
 
 .action-preview:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px var(--accent-glow);
+    box-shadow: 0 8px 20px var(--accent-glow);
 }
 
 .action-download {
@@ -628,26 +922,59 @@ textarea:focus {
 
 .action-download:hover {
     background: var(--surface-hover);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: #d8dee6;
     transform: translateY(-1px);
 }
 
 
-/* ----- Footer ----- */
+/* ==========================================================================
+   Landscape hero for laptop/desktop — the resume text and preview image
+   sit side by side. The upload card below stays centered and full stacked,
+   it does NOT sit beside the hero.
+   ========================================================================== */
 
-.site-footer {
-    margin-top: auto;
-    padding-top: 48px;
-    text-align: center;
+@media (min-width: 900px) {
+
+    .page-wrapper {
+        max-width: 1040px;
+        padding: 56px 48px 60px;
+    }
+
+    .hero-section {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        gap: 56px;
+        margin-bottom: 56px;
+    }
+
+    .hero-copy {
+        flex: 1;
+        max-width: 480px;
+    }
+
+    .hero-subtitle {
+        margin: 0;
+    }
+
+    .hero-title {
+        font-size: clamp(34px, 3.4vw, 48px);
+    }
+
+    .hero-visual {
+        flex: 0 0 380px;
+        max-width: 380px;
+    }
+
+    .upload-card {
+        max-width: 640px;
+        margin: 0 auto;
+    }
 }
 
-.site-footer p {
-    font-size: 12px;
-    color: var(--text-muted);
-}
 
-
-/* ----- Responsive ----- */
+/* ----- Responsive (small phones) ----- */
 
 @media (max-width: 480px) {
     .page-wrapper {

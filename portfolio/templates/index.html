@@ -41,104 +41,210 @@
                 </div>
                 <span class="brand-name">PortGen</span>
             </div>
+
+            <div class="header-accent" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M12 2.5c.6 3.2 1.7 5.3 3.3 6.9 1.6 1.6 3.7 2.7 6.9 3.3-3.2.6-5.3 1.7-6.9 3.3-1.6 1.6-2.7 3.7-3.3 6.9-.6-3.2-1.7-5.3-3.3-6.9-1.6-1.6-3.7-2.7-6.9-3.3 3.2-.6 5.3-1.7 6.9-3.3 1.6-1.6 2.7-3.7 3.3-6.9z"
+                        fill="currentColor" />
+                </svg>
+            </div>
         </header>
 
-        <!-- Hero -->
-        <section class="hero-section">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                AI-Powered Portfolio Generator
-            </div>
+        <!-- Hero + Upload card sit side-by-side on desktop (landscape),
+             and stack in the original order on phone. -->
+        <div class="content-grid">
 
-            <h1 class="hero-title">
-                Transform your resume<br>
-                into a <span class="gradient-text">stunning portfolio</span>
-            </h1>
+            <!-- Hero -->
+            <section class="hero-section">
+                <div class="hero-copy">
+                    <h1 class="hero-title">
+                        Transform your resume<br>
+                        into a <span class="gradient-text">stunning portfolio</span>
+                    </h1>
 
-            <p class="hero-subtitle">
-                Upload your resume as a text file or paste it directly. Our AI parses every detail
-                and builds a modern, responsive portfolio you can preview and download instantly.
-            </p>
-        </section>
-
-        <!-- ================= UPLOAD CARD ================= -->
-        <section class="upload-card" id="upload-card">
-
-            <!-- Mode Toggle -->
-            <div class="mode-toggle" id="mode-toggle">
-                <button class="mode-btn active" data-mode="file" id="btn-file-mode">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                    </svg>
-                    Upload File
-                </button>
-                <button class="mode-btn" data-mode="text" id="btn-text-mode">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="17" y1="10" x2="3" y2="10" />
-                        <line x1="21" y1="6" x2="3" y2="6" />
-                        <line x1="21" y1="14" x2="3" y2="14" />
-                        <line x1="17" y1="18" x2="3" y2="18" />
-                    </svg>
-                    Paste Text
-                </button>
-            </div>
-
-            <!-- File Upload Mode -->
-            <div class="upload-mode" id="file-mode">
-
-                <div class="drop-zone" id="drop-zone">
-                    <div class="drop-zone-content">
-                        <div class="drop-icon" id="drop-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
-                            </svg>
-                        </div>
-
-                        <p class="drop-text">
-                            <strong>Drop your resume here</strong><br>
-                            <span class="drop-hint">or click to browse • .txt files only</span>
-                        </p>
-
-                        <input type="file" id="file-input" accept=".txt" hidden>
-                    </div>
-
-                    <!-- File selected state -->
-                    <div class="file-info" id="file-info" style="display: none;">
-                        <div class="file-icon-sm">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                                <polyline points="14 2 14 8 20 8" />
-                                <line x1="16" y1="13" x2="8" y2="13" />
-                                <line x1="16" y1="17" x2="8" y2="17" />
-                            </svg>
-                        </div>
-                        <div class="file-details">
-                            <span class="file-name" id="file-name">resume.txt</span>
-                            <span class="file-size" id="file-size">2.4 KB</span>
-                        </div>
-                        <button class="file-remove" id="file-remove" title="Remove file">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
-                    </div>
+                    <p class="hero-subtitle">
+                        Upload your resume as a text file or paste it directly. Our AI parses every detail
+                        and builds a modern, responsive portfolio you can preview and download instantly.
+                    </p>
                 </div>
 
-            </div>
+                <div class="hero-visual">
+                    <div class="portfolio-mock" aria-hidden="true">
 
-            <!-- Text Paste Mode -->
-            <div class="upload-mode" id="text-mode" style="display: none;">
-                <div class="textarea-wrapper">
-                    <textarea id="resume-text" placeholder="Paste your resume text here...
+                        <div class="mock-card">
+                            <div class="mock-card-top">
+                                <div class="mock-avatar"></div>
+                                <div class="mock-id">
+                                    <span class="mock-name">Devon Lane</span>
+                                    <span class="mock-role">Product Designer</span>
+                                </div>
+                                <span class="mock-available">Available</span>
+                            </div>
+
+                            <div class="mock-skills">
+                                <span class="mock-label">Featured Skills</span>
+
+                                <div class="mock-skill-row">
+                                    <span class="mock-skill-name">UI Design</span>
+                                    <div class="mock-bar">
+                                        <div class="mock-bar-fill mock-bar-fill-1"></div>
+                                    </div>
+                                    <span class="mock-skill-pct">90%</span>
+                                </div>
+
+                                <div class="mock-skill-row">
+                                    <span class="mock-skill-name">DSA</span>
+                                    <div class="mock-bar">
+                                        <div class="mock-bar-fill mock-bar-fill-2"></div>
+                                    </div>
+                                    <span class="mock-skill-pct">95%</span>
+                                </div>
+
+                                <span class="mock-live-edit">1 Live Edit</span>
+                            </div>
+
+                            <div class="mock-project">
+                                <span class="mock-label">Recent Project</span>
+                                <div class="mock-project-row">
+                                    <div class="mock-project-thumb"></div>
+                                    <div class="mock-project-info">
+                                        <span class="mock-project-title">PayFlow SaaS Ecosystem</span>
+                                        <span class="mock-project-sub">Fintech application design</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="float-chip chip-ai">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b">
+                                <path
+                                    d="M12 2.5c.6 3.2 1.7 5.3 3.3 6.9 1.6 1.6 3.7 2.7 6.9 3.3-3.2.6-5.3 1.7-6.9 3.3-1.6 1.6-2.7 3.7-3.3 6.9-.6-3.2-1.7-5.3-3.3-6.9-1.6-1.6-3.7-2.7-6.9-3.3 3.2-.6 5.3-1.7 6.9-3.3 1.6-1.6 2.7-3.7 3.3-6.9z" />
+                            </svg>
+                            Powered By Intelligence
+                        </span>
+
+                        <span class="float-chip chip-skills">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="2.4" stroke-linecap="round">
+                                <line x1="6" y1="20" x2="6" y2="12" />
+                                <line x1="12" y1="20" x2="12" y2="6" />
+                                <line x1="18" y1="20" x2="18" y2="15" />
+                            </svg>
+                            Skills Highlighted
+                        </span>
+
+                        <span class="float-chip chip-ready">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Portfolio Ready
+                        </span>
+
+                        <span class="float-chip chip-experience">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="8" height="8" rx="1.5" />
+                                <rect x="13" y="3" width="8" height="8" rx="1.5" />
+                                <rect x="3" y="13" width="8" height="8" rx="1.5" />
+                                <rect x="13" y="13" width="8" height="8" rx="1.5" />
+                            </svg>
+                            Experience Mapped
+                        </span>
+
+                        <span class="float-chip chip-verified">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+                            </svg>
+                            Projects Verified
+                        </span>
+
+                        <span class="float-dot dot-orange"></span>
+                        <span class="float-dot dot-teal"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= UPLOAD CARD ================= -->
+            <section class="upload-card" id="upload-card">
+
+                <!-- Mode Toggle -->
+                <div class="mode-toggle" id="mode-toggle">
+                    <button class="mode-btn active" data-mode="file" id="btn-file-mode">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        Upload File
+                    </button>
+                    <button class="mode-btn" data-mode="text" id="btn-text-mode">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="17" y1="10" x2="3" y2="10" />
+                            <line x1="21" y1="6" x2="3" y2="6" />
+                            <line x1="21" y1="14" x2="3" y2="14" />
+                            <line x1="17" y1="18" x2="3" y2="18" />
+                        </svg>
+                        Paste Text
+                    </button>
+                </div>
+
+                <!-- File Upload Mode -->
+                <div class="upload-mode" id="file-mode">
+
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="drop-zone-content">
+                            <div class="drop-icon" id="drop-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+
+                            <p class="drop-text">
+                                <strong>Drop your resume here</strong><br>
+                                <span class="drop-hint">or click to browse • .txt files only</span>
+                            </p>
+
+                            <input type="file" id="file-input" accept=".txt" hidden>
+                        </div>
+
+                        <!-- File selected state -->
+                        <div class="file-info" id="file-info" style="display: none;">
+                            <div class="file-icon-sm">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                </svg>
+                            </div>
+                            <div class="file-details">
+                                <span class="file-name" id="file-name">resume.txt</span>
+                                <span class="file-size" id="file-size">2.4 KB</span>
+                            </div>
+                            <button class="file-remove" id="file-remove" title="Remove file">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Text Paste Mode -->
+                <div class="upload-mode" id="text-mode" style="display: none;">
+                    <div class="textarea-wrapper">
+                        <textarea id="resume-text" placeholder="Paste your resume text here...
 
 Example:
 John Doe
@@ -147,58 +253,55 @@ john@example.com | github.com/johndoe
 
 PROFESSIONAL SUMMARY
 Experienced full-stack developer with 5+ years..." rows="12"></textarea>
-                    <div class="char-count" id="char-count">0 words</div>
+                        <div class="char-count" id="char-count">0 words</div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Status / Error Messages -->
-            <div class="status-area" id="status-area" style="display: none;">
-                <div class="status-icon" id="status-icon"></div>
-                <span class="status-text" id="status-text"></span>
-            </div>
+                <!-- Status / Error Messages -->
+                <div class="status-area" id="status-area" style="display: none;">
+                    <div class="status-icon" id="status-icon"></div>
+                    <span class="status-text" id="status-text"></span>
+                </div>
 
-            <!-- Generate Button -->
-            <button class="generate-btn" id="generate-btn">
-                <span class="btn-content" id="btn-content">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    Generate Portfolio
-                </span>
-                <span class="btn-loading" id="btn-loading" style="display: none;">
-                    <div class="spinner"></div>
-                    Generating with AI...
-                </span>
-            </button>
+                <!-- Generate Button -->
+                <button class="generate-btn" id="generate-btn">
+                    <span class="btn-content" id="btn-content">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        Generate Portfolio
+                    </span>
+                    <span class="btn-loading" id="btn-loading" style="display: none;">
+                        <div class="spinner"></div>
+                        Generating with AI...
+                    </span>
+                </button>
 
-            <!-- Success Actions -->
-            <div class="success-actions" id="success-actions" style="display: none;">
-                <a href="/portfolio" target="_blank" class="action-btn action-preview" id="btn-preview">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                        <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    Preview Portfolio
-                </a>
-                <a href="/download" class="action-btn action-download" id="btn-download">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Download HTML
-                </a>
-            </div>
+                <!-- Success Actions -->
+                <div class="success-actions" id="success-actions" style="display: none;">
+                    <a href="/portfolio" target="_blank" class="action-btn action-preview" id="btn-preview">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        Preview Portfolio
+                    </a>
+                    <a href="/download" class="action-btn action-download" id="btn-download">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download HTML
+                    </a>
+                </div>
 
-        </section>
+            </section>
 
-        <!-- Footer -->
-        <footer class="site-footer">
-            <p>Built with Flask & Gemini AI</p>
-        </footer>
+        </div>
 
     </div>
 
