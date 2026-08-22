@@ -13,8 +13,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Resume-Builder-API", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,  # We use Bearer tokens in headers, not cookies —
+                              # credentials=True + origins=["*"] is invalid per the
+                              # CORS spec anyway and can cause browsers to block requests.
     allow_methods=["*"],
     allow_headers=["*"],
 )
