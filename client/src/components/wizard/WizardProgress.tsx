@@ -14,10 +14,16 @@ export function WizardProgress({ step, total, labels }: { step: number; total: n
           <div
             key={i}
             className={cn(
-              "h-1 flex-1 rounded-full transition-colors duration-300",
-              i <= step ? "bg-cobalt" : "bg-ink-line"
+              "h-1.5 flex-1 overflow-hidden rounded-full bg-ink-line transition-colors duration-300"
             )}
-          />
+          >
+            <div
+              className={cn(
+                "h-full rounded-full bg-gradient-to-r from-cobalt to-cobalt-soft transition-all duration-500",
+                i < step ? "w-full" : i === step ? "w-full shadow-glow" : "w-0"
+              )}
+            />
+          </div>
         ))}
       </div>
     </div>

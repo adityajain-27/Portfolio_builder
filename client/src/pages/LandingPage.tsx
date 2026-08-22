@@ -12,29 +12,43 @@ import {
   PenSquare,
   Eye,
   Download,
+  LayoutTemplate,
+  ListChecks,
+  Lock,
 } from "lucide-react";
 import { GateModal } from "@/components/GateModal";
 import { Button } from "@/components/ui/Button";
 import { useGateStore } from "@/store/gateStore";
+import { FullResumeShowcase } from "@/components/landing/FullResumeShowcase";
+import { FAQSection } from "@/components/landing/FAQSection";
+import { TemplateGallery } from "@/components/landing/TemplateGallery";
 
 const DEMO_PERSONAS = [
   {
     name: "Aditya Sharma",
     role: "Full-Stack Engineer",
-    summary: "Full-stack engineer focused on shipping fast, reliable product surfaces.",
+    summary: "Full-stack engineer focused on shipping fast, reliable product surfaces end to end.",
     section: "Experience",
     entry: "Senior Developer — Devnovate",
     date: "2024 — Present",
-    bullets: ["Led migration to a service-oriented backend, cutting p95 latency 40%.", "Shipped a design system used across 6 product teams."],
+    bullets: [
+      "Led migration to a service-oriented backend, cutting p95 latency 40%.",
+      "Shipped a design system used across 6 product teams.",
+      "Mentored 3 junior engineers through their first production releases.",
+    ],
   },
   {
     name: "Meher Kaur",
     role: "Product Designer",
-    summary: "Product designer who turns fuzzy problems into shipped, measurable design.",
+    summary: "Product designer who turns fuzzy problems into shipped, measurable design work.",
     section: "Projects",
     entry: "Studio — Design system for a fintech app",
     date: "React · Figma",
-    bullets: ["Cut onboarding drop-off by 22% through a redesigned flow.", "Built and documented a 40-component design system."],
+    bullets: [
+      "Cut onboarding drop-off by 22% through a redesigned flow.",
+      "Built and documented a 40-component design system.",
+      "Ran 15+ user interviews to validate the new IA.",
+    ],
   },
 ];
 
@@ -46,22 +60,22 @@ function DocShowcase() {
 
   useEffect(() => {
     if (lineIdx < totalLines) {
-      const t = setTimeout(() => setLineIdx((v) => v + 1), 380);
+      const t = setTimeout(() => setLineIdx((v) => v + 1), 360);
       return () => clearTimeout(t);
     }
     const t = setTimeout(() => {
       setPersonaIdx((v) => (v + 1) % DEMO_PERSONAS.length);
       setLineIdx(0);
-    }, 2200);
+    }, 2400);
     return () => clearTimeout(t);
   }, [lineIdx, totalLines]);
 
   return (
-    <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-ink-line bg-white shadow-card">
+    <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-ink-line bg-white shadow-card">
       <div className="h-[3px] w-full bg-gradient-to-r from-cobalt via-cobalt-soft to-gold" />
-      <div className="flex items-center justify-between border-b border-ink-line px-4 py-2.5">
+      <div className="flex items-center justify-between border-b border-ink-line px-5 py-3">
         <span className="eyebrow">Live Preview</span>
-        <span className="flex items-center gap-1.5 rounded-full border border-ink-line bg-canvas px-2 py-0.5 font-mono text-[9px] tracking-wide text-slate">
+        <span className="flex items-center gap-1.5 rounded-full border border-ink-line bg-canvas px-2.5 py-1 font-mono text-[10px] tracking-wide text-slate">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cobalt/50" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cobalt" />
@@ -70,54 +84,58 @@ function DocShowcase() {
         </span>
       </div>
 
-      <div className="bg-canvas-soft p-5">
+      <div className="bg-canvas-soft p-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={personaIdx}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="paper-surface min-h-[280px] rounded-sm p-6 font-doc text-[11px] leading-relaxed text-ink/85"
+            className="paper-surface min-h-[420px] rounded-sm p-8 font-doc text-[12px] leading-relaxed text-ink/85"
           >
             {lineIdx >= 1 && (
               <div className="animate-type-settle text-center">
-                <h3 className="text-base font-bold text-ink">{persona.name}</h3>
-                <p className="mt-0.5 text-[10px] text-ink/60">{persona.role}</p>
+                <h3 className="text-lg font-bold text-ink">{persona.name}</h3>
+                <p className="mt-0.5 text-[11px] text-ink/60">{persona.role}</p>
               </div>
             )}
             {lineIdx >= 2 && (
-              <div className="animate-type-settle mt-3">
-                <p className="border-b border-ink/25 pb-0.5 text-[11px] font-bold text-ink">Summary</p>
-                <p className="mt-1 italic text-ink/75">{persona.summary}</p>
+              <div className="animate-type-settle mt-4">
+                <p className="border-b border-ink/25 pb-0.5 text-[12px] font-bold text-ink">Summary</p>
+                <p className="mt-1.5 italic text-ink/75">{persona.summary}</p>
               </div>
             )}
             {lineIdx >= 3 && (
-              <div className="animate-type-settle mt-3">
-                <p className="border-b border-ink/25 pb-0.5 text-[11px] font-bold text-ink">{persona.section}</p>
-                <div className="mt-1 flex items-baseline justify-between">
+              <div className="animate-type-settle mt-4">
+                <p className="border-b border-ink/25 pb-0.5 text-[12px] font-bold text-ink">{persona.section}</p>
+                <div className="mt-1.5 flex items-baseline justify-between">
                   <span className="font-bold text-ink">{persona.entry}</span>
                   <span className="font-bold text-ink/60">{persona.date}</span>
                 </div>
               </div>
             )}
-            {persona.bullets.map((b, i) => (
-              lineIdx >= 4 + i && (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, x: -4 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="ml-4 mt-1 list-disc text-ink/75 before:mr-1.5 before:content-['•']"
-                >
-                  {b}
-                </motion.p>
-              )
-            ))}
+            <ul className="ml-4 mt-1.5 list-disc space-y-1 text-ink/75">
+              {persona.bullets.map(
+                (b, i) =>
+                  lineIdx >= 4 + i && (
+                    <motion.li key={i} initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }}>
+                      {b}
+                    </motion.li>
+                  )
+              )}
+            </ul>
           </motion.div>
         </AnimatePresence>
       </div>
     </div>
   );
 }
+
+const FACTS = [
+  { icon: ListChecks, value: "6", label: "structured sections, always in the right order" },
+  { icon: LayoutTemplate, value: "3", label: "steps from blank form to finished document" },
+  { icon: Lock, value: "0", label: "data stored when you build as a guest" },
+];
 
 export function LandingPage() {
   const [gateOpen, setGateOpen] = useState(false);
@@ -154,7 +172,7 @@ export function LandingPage() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-6 pb-16 pt-6 sm:px-10 lg:flex-row lg:items-center lg:gap-16 lg:pt-16">
+      <main className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 pb-16 pt-6 sm:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 lg:pt-16">
         <div className="max-w-xl">
           <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
             Resume Studio · Document Generation
@@ -209,15 +227,32 @@ export function LandingPage() {
               Try without an account
             </Button>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="mt-12 grid grid-cols-3 gap-4 border-t border-ink-line pt-6"
+          >
+            {FACTS.map(({ icon: Icon, value, label }) => (
+              <div key={label}>
+                <div className="flex items-center gap-1.5 text-cobalt">
+                  <Icon size={13} />
+                  <span className="font-display text-xl font-semibold text-slate-bright">{value}</span>
+                </div>
+                <p className="mt-1 text-[11px] leading-snug text-slate">{label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="mt-16 flex flex-1 justify-center lg:mt-0"
+          className="flex justify-center lg:justify-end"
         >
-          <div className="animate-float-slow">
+          <div className="w-full max-w-xl animate-float-slow">
             <DocShowcase />
           </div>
         </motion.div>
@@ -240,7 +275,7 @@ export function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.08 * i }}
-              className="rounded-2xl border border-ink-line bg-white p-6 shadow-card"
+              className="rounded-2xl border border-ink-line bg-white p-6 shadow-card transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-cobalt/30 bg-cobalt/10 text-cobalt">
                 <Icon size={17} />
@@ -251,6 +286,14 @@ export function LandingPage() {
           ))}
         </div>
       </section>
+
+      <TemplateGallery />
+      <FullResumeShowcase />
+      <FAQSection />
+
+      <footer className="relative z-10 border-t border-ink-line px-6 py-8 text-center text-xs text-slate sm:px-10">
+        SkillCred — private resume studio.
+      </footer>
 
       <div className="pointer-events-none absolute inset-0 -z-10 bg-grain" />
 

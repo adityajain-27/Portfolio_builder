@@ -52,12 +52,14 @@ export function StudioEntryPage() {
             whileHover={{ y: -3 }}
             onClick={() => navigate(p.to)}
             className={
-              "group relative flex flex-col items-start rounded-2xl border border-ink-line bg-ink-soft p-7 text-left transition-colors " +
+              "group relative flex flex-col items-start overflow-hidden rounded-2xl border border-ink-line bg-white text-left shadow-card transition-shadow duration-300 " +
               (p.accent === "cobalt"
-                ? "hover:border-cobalt/50 hover:shadow-glow"
-                : "hover:border-gold/50")
+                ? "hover:shadow-glow"
+                : "hover:shadow-[0_0_0_1px_rgba(169,128,63,0.35),0_8px_28px_-8px_rgba(169,128,63,0.35)]")
             }
           >
+            <div className={"h-[3px] w-full " + (p.accent === "cobalt" ? "bg-gradient-to-r from-cobalt to-cobalt-soft" : "bg-gradient-to-r from-gold to-gold-soft")} />
+            <div className="flex flex-col items-start p-7">
             <div
               className={
                 "mb-5 flex h-11 w-11 items-center justify-center rounded-full border " +
@@ -78,6 +80,7 @@ export function StudioEntryPage() {
 
             <div className="mt-6 flex items-center gap-1.5 text-sm font-medium text-slate-bright opacity-0 transition-opacity group-hover:opacity-100">
               Continue <ArrowRight size={14} />
+            </div>
             </div>
           </motion.button>
         ))}
