@@ -30,7 +30,7 @@ export function BulletsEditor({ bullets, onChange, max = 4, placeholder = "Descr
             value={b}
             onChange={(e) => update(i, e.target.value)}
             placeholder={placeholder}
-            className="flex-1 rounded-md border border-ink-line bg-ink px-3 py-2 text-sm text-slate-bright placeholder:text-slate/50 outline-none focus:border-cobalt/60"
+            className="flex-1 rounded-md border border-ink-line bg-canvas px-3 py-2 text-sm text-slate-bright placeholder:text-slate/50 outline-none focus:border-cobalt/60"
           />
           <button
             type="button"

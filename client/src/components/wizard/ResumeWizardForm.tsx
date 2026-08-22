@@ -28,7 +28,6 @@ interface ResumeWizardFormProps {
   eyebrow: string;
   heading: string;
   reviewNote: string;
-  /** Rendered in place of the default Generate button on the last step. */
   renderReviewAction: (data: ResumeData) => ReactNode;
 }
 
@@ -143,7 +142,7 @@ export function ResumeWizardForm({ initialData, eyebrow, heading, reviewNote, re
                       <BulletsEditor
                         bullets={values.experience[i]?.bullets || []}
                         max={LIMITS.experienceBulletSlots[i + 1] ?? 2}
-                        onChange={(b) => experience.update(i, { ...values.experience[i], bullets: b })}
+                        onChange={(b) => setValue(`experience.${i}.bullets`, b, { shouldValidate: true })}
                       />
                     </div>
                   </div>
@@ -173,7 +172,7 @@ export function ResumeWizardForm({ initialData, eyebrow, heading, reviewNote, re
                       <BulletsEditor
                         bullets={values.projects[i]?.bullets || []}
                         max={LIMITS.projects.bulletsPerProject}
-                        onChange={(b) => projects.update(i, { ...values.projects[i], bullets: b })}
+                        onChange={(b) => setValue(`projects.${i}.bullets`, b, { shouldValidate: true })}
                       />
                     </div>
                   </div>
