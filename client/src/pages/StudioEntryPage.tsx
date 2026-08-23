@@ -30,7 +30,16 @@ export function StudioEntryPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
-      <div className="absolute left-6 top-6 right-6 flex items-center justify-between sm:left-10 sm:top-10 sm:right-10">
+      <div className="absolute left-6 top-6 flex flex-col items-start gap-3 sm:left-10 sm:top-10">
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright"
+        >
+          <FileText size={18} className="text-cobalt" />
+          SkillCred
+        </motion.div>
+
         <motion.button
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 1, x: 0 }}
@@ -40,15 +49,6 @@ export function StudioEntryPage() {
           <ArrowLeft size={14} />
           Back to home
         </motion.button>
-
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 font-display text-base font-semibold text-slate-bright"
-        >
-          <FileText size={17} className="text-cobalt" />
-          Folio
-        </motion.div>
       </div>
 
       <motion.div
