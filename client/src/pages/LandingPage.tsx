@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FloatingBlobs } from "@/components/landing/FloatingBlobs";
+import { TypingHeadline } from "@/components/landing/TypingHeadline";
 import { EnvelopeReveal } from "@/components/landing/EnvelopeReveal";
 import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
 import { WhatsInside } from "@/components/landing/WhatsInside";
@@ -62,14 +63,9 @@ export function LandingPage() {
           <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5">
             Resume Studio · Document Generation
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="font-display text-4xl font-semibold leading-[1.1] text-slate-bright sm:text-5xl"
-          >
-            Every resume, <span className="text-cobalt italic">typeset</span> to perfection.
-          </motion.h1>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+            <TypingHeadline />
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
