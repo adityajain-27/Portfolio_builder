@@ -71,6 +71,14 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "shimmer": {
+          "0%": { backgroundPosition: "200% center" },
+          "100%": { backgroundPosition: "-200% center" },
+        },
+        "blink": {
+          "0%,100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
       },
       animation: {
         "type-settle": "type-settle 0.35s ease-out",
@@ -78,6 +86,8 @@ export default {
         "drift": "drift 14s ease-in-out infinite",
         "drift-slow": "drift 20s ease-in-out infinite",
         "marquee": "marquee 28s linear infinite",
+        "shimmer": "shimmer 3.5s linear infinite",
+        "blink": "blink 1s step-start infinite",
       },
     },
   },
