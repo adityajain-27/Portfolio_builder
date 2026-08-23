@@ -239,15 +239,17 @@ function displayCertifications(certifications) {
 //------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
-fetch("http://127.0.0.1:5000/api/resume")
-    .then(response => {
-
+// EMBEDDED_DATA is only present in the standalone file produced by /download —
+// use it directly there instead of fetching (there's no server to fetch from).
+(typeof EMBEDDED_DATA !== "undefined"
+    ? Promise.resolve(EMBEDDED_DATA)
+    : fetch("/api/resume").then(response => {
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);
         }
-
         return response.json();
     })
+)
     .then(data => {
         console.log(data);
 
