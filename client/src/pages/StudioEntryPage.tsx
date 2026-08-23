@@ -35,7 +35,7 @@ export function StudioEntryPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <p className="eyebrow mb-3">Studio Unlocked</p>
+        <p className="eyebrow mb-3">Resume Studio</p>
         <h1 className="font-display text-3xl font-semibold text-slate-bright sm:text-4xl">
           How do you want to build?
         </h1>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -13,9 +12,7 @@ import {
   ListChecks,
   Lock,
 } from "lucide-react";
-import { GateModal } from "@/components/GateModal";
 import { Button } from "@/components/ui/Button";
-import { useGateStore } from "@/store/gateStore";
 import { FloatingBlobs } from "@/components/landing/FloatingBlobs";
 import { EnvelopeReveal } from "@/components/landing/EnvelopeReveal";
 import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
@@ -32,18 +29,10 @@ const FACTS = [
 ];
 
 export function LandingPage() {
-  const [gateOpen, setGateOpen] = useState(false);
-  const [intendedPath, setIntendedPath] = useState<string>("/enter");
-  const unlocked = useGateStore((s) => s.isUnlocked());
   const navigate = useNavigate();
 
   function goTo(path: string) {
-    if (unlocked) {
-      navigate(path);
-    } else {
-      setIntendedPath(path);
-      setGateOpen(true);
-    }
+    navigate(path);
   }
 
   return (
@@ -87,9 +76,8 @@ export function LandingPage() {
             transition={{ delay: 0.1 }}
             className="mt-5 text-base leading-relaxed text-slate"
           >
-            A private studio for building resumes that read like they were laid out by hand —
-            structured, ATS-clean, and generated as a real Google Doc + PDF in seconds. Access is
-            by invitation only.
+            A studio for building resumes that read like they were laid out by hand —
+            structured, ATS-clean, and generated as a real Google Doc + PDF in seconds.
           </motion.p>
 
           <motion.div
@@ -100,7 +88,7 @@ export function LandingPage() {
           >
             {[
               { icon: Zap, label: "Live typeset preview" },
-              { icon: ShieldCheck, label: "Gated, private access" },
+              { icon: ShieldCheck, label: "Guest mode, nothing stored" },
               { icon: Sparkles, label: "One-click doc export" },
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-2 text-sm text-slate">
@@ -162,15 +150,6 @@ export function LandingPage() {
       <footer className="relative z-10 border-t border-ink-line px-6 py-8 text-center text-xs text-slate sm:px-10">
         Folio — private resume studio.
       </footer>
-
-      <GateModal
-        open={gateOpen}
-        onClose={() => setGateOpen(false)}
-        onUnlocked={() => {
-          setGateOpen(false);
-          navigate(intendedPath);
-        }}
-      />
     </div>
   );
 }
