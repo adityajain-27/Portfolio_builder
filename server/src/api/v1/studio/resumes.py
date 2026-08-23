@@ -65,7 +65,13 @@ async def get_my_resume(
     resume = await get_saved_resume_by_id(db, resume_id=resume_id, user_id=current_user["id"])
     if not resume:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resume not found")
-    return resume
+    return {
+        "id": resume["id"],
+        "data": resume["data"],
+        "google_doc_url": resume["google_doc_url"],
+        "download_url": resume["download_url"],
+        "created_at": resume["created_at"],
+    }
 
 
 @router.put("/resumes/{resume_id}", response_model=GenerateResumeResponse)

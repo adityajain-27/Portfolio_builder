@@ -41,14 +41,26 @@
                 </div>
                 <span class="brand-name">PortGen</span>
             </div>
-
-            <div class="header-accent" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M12 2.5c.6 3.2 1.7 5.3 3.3 6.9 1.6 1.6 3.7 2.7 6.9 3.3-3.2.6-5.3 1.7-6.9 3.3-1.6 1.6-2.7 3.7-3.3 6.9-.6-3.2-1.7-5.3-3.3-6.9-1.6-1.6-3.7-2.7-6.9-3.3 3.2-.6 5.3-1.7 6.9-3.3 1.6-1.6 2.7-3.7 3.3-6.9z"
-                        fill="currentColor" />
+            {% if studio_url %}
+            <button id="studio-lock-btn" class="studio-lock-btn" title="Studio access" aria-label="Studio access">
+                <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor">
+                    <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80,35.8-80,80zm-48,48V144C96,64.5,160.5,0,240,0s144,64.5,144,144v48h16c35.3,0,64,28.7,64,64V448c0,35.3-28.7,64-64,64H80c-35.3,0-64-28.7-64-64V256c0-35.3,28.7-64,64-64H96z"/>
                 </svg>
+            </button>
+
+            <div id="studio-gate-modal" class="studio-gate-overlay" style="display:none;">
+                <div class="studio-gate-box">
+                    <button id="studio-gate-close" class="studio-gate-close" aria-label="Close">&times;</button>
+                    <p class="studio-gate-title">Unlock the studio</p>
+                    <p class="studio-gate-sub">Access is invite-only. Enter the studio password to continue.</p>
+                    <form id="studio-gate-form">
+                        <input type="password" id="studio-gate-password" placeholder="Studio password" autocomplete="off">
+                        <p id="studio-gate-error" class="studio-gate-error" style="display:none;"></p>
+                        <button type="submit" id="studio-gate-submit">Unlock</button>
+                    </form>
+                </div>
             </div>
+            {% endif %}
         </header>
 
         <!-- Hero + Upload card sit side-by-side on desktop (landscape),
@@ -306,6 +318,71 @@ Experienced full-stack developer with 5+ years..." rows="12"></textarea>
     </div>
 
     <script src="/static/upload.js"></script>
+
+    {% if studio_url %}
+    <script>
+        (function () {
+            var STUDIO_URL = {{ studio_url|tojson }};
+            var API_URL = {{ api_url|tojson }};
+
+            var lockBtn = document.getElementById("studio-lock-btn");
+            var modal = document.getElementById("studio-gate-modal");
+            var closeBtn = document.getElementById("studio-gate-close");
+            var form = document.getElementById("studio-gate-form");
+            var passwordInput = document.getElementById("studio-gate-password");
+            var errorEl = document.getElementById("studio-gate-error");
+            var submitBtn = document.getElementById("studio-gate-submit");
+
+            function openModal() {
+                errorEl.style.display = "none";
+                passwordInput.value = "";
+                modal.style.display = "flex";
+                setTimeout(function () { passwordInput.focus(); }, 50);
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+            }
+
+            lockBtn.addEventListener("click", openModal);
+            closeBtn.addEventListener("click", closeModal);
+            modal.addEventListener("click", function (e) {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && modal.style.display === "flex") closeModal();
+            });
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                errorEl.style.display = "none";
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Unlocking...";
+
+                fetch(API_URL + "/studio/gate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password: passwordInput.value }),
+                })
+                    .then(function (res) {
+                        return res.json().then(function (data) {
+                            if (!res.ok) throw new Error(data.detail || "Incorrect password");
+                            return data;
+                        });
+                    })
+                    .then(function (data) {
+                        window.location.href = STUDIO_URL + "/enter?gate_token=" + encodeURIComponent(data.gate_token);
+                    })
+                    .catch(function (err) {
+                        errorEl.textContent = err.message || "Incorrect password";
+                        errorEl.style.display = "block";
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Unlock";
+                    });
+            });
+        })();
+    </script>
+    {% endif %}
 
 </body>
 

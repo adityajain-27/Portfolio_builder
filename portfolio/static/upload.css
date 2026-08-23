@@ -120,6 +120,7 @@ body {
 /* ----- Header ----- */
 
 .site-header {
+    position: relative;
     width: 100%;
     margin-bottom: 48px;
     position: relative;
@@ -971,6 +972,230 @@ textarea:focus {
         max-width: 640px;
         margin: 0 auto;
     }
+}
+
+.studio-lock-btn {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    cursor: pointer;
+    z-index: 50;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.studio-lock-btn:hover {
+    color: var(--text-primary, #fff);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.studio-gate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.studio-gate-box {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #14161a;
+}
+
+.studio-gate-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.studio-gate-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.studio-gate-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 18px;
+    line-height: 1.5;
+}
+
+#studio-gate-password {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#studio-gate-password:focus {
+    border-color: rgba(45, 212, 191, 0.5);
+}
+
+.studio-gate-error {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: #f87171;
+}
+
+#studio-gate-submit {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #2dd4bf;
+    color: #06231f;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#studio-gate-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.studio-lock-btn {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    cursor: pointer;
+    z-index: 50;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.studio-lock-btn:hover {
+    color: var(--text-primary, #fff);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.studio-gate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.studio-gate-box {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #14161a;
+}
+
+.studio-gate-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.studio-gate-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.studio-gate-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 18px;
+    line-height: 1.5;
+}
+
+#studio-gate-password {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#studio-gate-password:focus {
+    border-color: rgba(45, 212, 191, 0.5);
+}
+
+.studio-gate-error {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: #f87171;
+}
+
+#studio-gate-submit {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #2dd4bf;
+    color: #06231f;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#studio-gate-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 

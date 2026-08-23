@@ -11,7 +11,6 @@ Endpoints:
 """
 
 import os
-import sys
 import re
 import json
 
@@ -38,11 +37,15 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not API_KEY:
-    print("Error: GEMINI_API_KEY not found in .env!")
-    sys.exit(1)
+    print("Warning: GEMINI_API_KEY not found in .env — /generate will fail until it's set.")
 
-# Create Gemini client
-client = genai.Client(api_key=API_KEY)
+# Hidden link to the separate resume-studio app (React + FastAPI), if configured.
+STUDIO_URL = os.getenv("STUDIO_URL", "")
+# FastAPI base URL, used by the lock icon to call /studio/gate directly.
+STUDIO_API_URL = os.getenv("STUDIO_API_URL", "http://localhost:8000/api/v1")
+
+# Create Gemini client lazily — only needed once /generate is actually called.
+client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 # In-memory store for the most recently generated resume data
 resume_data = None
@@ -83,7 +86,7 @@ def parse_resume_with_gemini(cleaned_resume):
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.5-flash",
             contents=prompt
         )
 
@@ -113,7 +116,7 @@ def parse_resume_with_gemini(cleaned_resume):
 @app.route("/")
 def index():
     """Serve the upload interface."""
-    return render_template("index.html")
+    return render_template("index.html", studio_url=STUDIO_URL, api_url=STUDIO_API_URL)
 
 
 @app.route("/generate", methods=["POST"])
@@ -123,6 +126,9 @@ def generate():
     Clean it, parse with Gemini, store result, and return JSON.
     """
     global resume_data
+
+    if client is None:
+        return jsonify({"error": "Server is missing GEMINI_API_KEY. Set it in .env and restart."}), 503
 
     resume_text = None
 

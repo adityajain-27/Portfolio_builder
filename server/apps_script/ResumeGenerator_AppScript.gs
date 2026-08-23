@@ -17,6 +17,13 @@
 var TEMPLATE_DOC_ID = '1_6LwgRLNlHqpGNkrxetmRVs7ouM0h_fH2-KpNVkPs84';
 var OUTPUT_FOLDER_ID = '1clvDFwkCfwsjbWC8rvPdLRlFmVxL7OKD';
 
+// Guest requests (no account, nothing saved server-side) have no way to ever
+// come back and clean up their Doc/PDF, so they land in a separate folder
+// that a scheduled trigger (see cleanupExpiredGuestFiles) sweeps on a timer.
+// Create this folder in Drive once and paste its id here.
+var GUEST_OUTPUT_FOLDER_ID = '';
+var GUEST_FILE_EXPIRY_HOURS = 48;
+
 // Fixed-slot counts must match the template exactly (see Resume_Template (1).docx):
 var EDU_SLOTS = 3;
 var EXP_SLOTS = 3;
@@ -35,7 +42,9 @@ function doPost(e) {
     var safeName = fullName.replace(/[\\/:*?"<>|]/g, '').trim();
     var fileName = (safeName || 'Resume') + '_Resume';
 
-    var folder = OUTPUT_FOLDER_ID ? DriveApp.getFolderById(OUTPUT_FOLDER_ID) : null;
+    var isGuest = !!data._is_guest;
+    var targetFolderId = (isGuest && GUEST_OUTPUT_FOLDER_ID) ? GUEST_OUTPUT_FOLDER_ID : OUTPUT_FOLDER_ID;
+    var folder = targetFolderId ? DriveApp.getFolderById(targetFolderId) : null;
 
     var templateFile = DriveApp.getFileById(TEMPLATE_DOC_ID);
     var newFile = templateFile.makeCopy(fileName);
@@ -209,16 +218,27 @@ function escapeForRegexReplacement(value) {
   return String(value).replace(/\\/g, '\\\\').replace(/\$/g, '\\$');
 }
 
-// Removes the whole paragraph that contains the given literal placeholder text.
-// Used for fixed-slot sections the user left empty, so no blank line/gap remains.
+// Removes the whole paragraph (or list item — bullets in this template are
+// LIST_ITEM elements, not PARAGRAPH) that contains the given literal
+// placeholder text. Used for fixed-slot sections the user left empty, so no
+// blank line/gap — or leftover "{{PLACEHOLDER}}" text — remains.
 function removeParagraphContaining(body, literalText) {
   var numChildren = body.getNumChildren();
   for (var i = numChildren - 1; i >= 0; i--) {
     var child = body.getChild(i);
-    if (child.getType() !== DocumentApp.ElementType.PARAGRAPH) continue;
-    var para = child.asParagraph();
-    if (para.getText().indexOf(literalText) !== -1) {
-      body.removeChild(para);
+    var type = child.getType();
+    if (type !== DocumentApp.ElementType.PARAGRAPH && type !== DocumentApp.ElementType.LIST_ITEM) continue;
+    var el = type === DocumentApp.ElementType.PARAGRAPH ? child.asParagraph() : child.asListItem();
+    if (el.getText().indexOf(literalText) !== -1) {
+      // A document/section can never end up with zero paragraphs — removing
+      // the last one in its section throws. Fall back to blanking the text.
+      try {
+        body.removeChild(el);
+      } catch (removeErr) {
+        // Docs also rejects a fully-empty text run — a single space is the
+        // smallest content that satisfies both constraints.
+        el.setText(' ');
+      }
     }
   }
 }
@@ -296,4 +316,48 @@ function doGet(e) {
   return ContentService
     .createTextOutput(JSON.stringify({ status: 'Resume Generator Apps Script is live' }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ============================================================
+//  Guest file cleanup
+//  Run installTimeTrigger() ONCE manually from the Apps Script editor
+//  (select it in the function dropdown, click Run) to schedule this on
+//  a recurring timer. Deletes anything older than GUEST_FILE_EXPIRY_HOURS
+//  from GUEST_OUTPUT_FOLDER_ID — guest resumes have no account/DB record,
+//  so there is no other way to reclaim that storage.
+// ============================================================
+
+function cleanupExpiredGuestFiles() {
+  if (!GUEST_OUTPUT_FOLDER_ID) return;
+
+  var folder = DriveApp.getFolderById(GUEST_OUTPUT_FOLDER_ID);
+  var cutoff = new Date(Date.now() - GUEST_FILE_EXPIRY_HOURS * 60 * 60 * 1000);
+  var files = folder.getFiles();
+  var deleted = 0;
+
+  while (files.hasNext()) {
+    var file = files.next();
+    if (file.getLastUpdated() < cutoff) {
+      file.setTrashed(true);
+      deleted++;
+    }
+  }
+
+  console.log('cleanupExpiredGuestFiles: trashed ' + deleted + ' file(s) older than ' + GUEST_FILE_EXPIRY_HOURS + 'h');
+}
+
+// One-time setup — creates the daily trigger that calls cleanupExpiredGuestFiles.
+// Safe to re-run: it removes any existing trigger for this function first.
+function installTimeTrigger() {
+  var triggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === 'cleanupExpiredGuestFiles') {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+  ScriptApp.newTrigger('cleanupExpiredGuestFiles')
+    .timeBased()
+    .everyDays(1)
+    .atHour(3)
+    .create();
 }
