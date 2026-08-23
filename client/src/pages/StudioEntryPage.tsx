@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FileEdit, UserCircle2, ArrowRight, ShieldOff, Save } from "lucide-react";
+import { FileEdit, UserCircle2, ArrowRight, ArrowLeft, ShieldOff, Save } from "lucide-react";
 
 const PATHS = [
   {
@@ -29,13 +29,23 @@ export function StudioEntryPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-6 py-16">
+    <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
+      <motion.button
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        onClick={() => navigate("/")}
+        className="absolute left-6 top-6 flex items-center gap-1.5 rounded-full border border-ink-line bg-white px-3.5 py-2 text-xs font-medium text-slate transition-colors hover:border-cobalt/30 hover:text-slate-bright sm:left-10 sm:top-10"
+      >
+        <ArrowLeft size={14} />
+        Back to home
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <p className="eyebrow mb-3">Resume Studio</p>
+        <p className="eyebrow mb-3">Studio Unlocked</p>
         <h1 className="font-display text-3xl font-semibold text-slate-bright sm:text-4xl">
           How do you want to build?
         </h1>
