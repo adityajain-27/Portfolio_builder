@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Loader2, Save, AlertCircle, CheckCircle2, Download, ExternalLink, FileCheck2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ResumeData } from "@/types/resume";
-import { emptyResume } from "@/types/resume";
+import { emptyResume, clampResumeToLimits } from "@/types/resume";
 import { api, apiErrorMessage } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import { DashboardTopbar } from "@/components/dashboard/DashboardTopbar";
@@ -33,9 +33,12 @@ export function SavedResumePage() {
     setSaving(true);
     setSaveError(null);
     try {
+      // See GuestWizardPage — the wizard only warns on soft-limit overflow,
+      // it never blocks, so clamp to the backend's hard limits right here.
+      const clamped = clampResumeToLimits(data);
       const res = isEditing
-        ? await api.put(`/studio/resumes/${id}`, data)
-        : await api.post("/studio/resumes/generate", data);
+        ? await api.put(`/studio/resumes/${id}`, clamped)
+        : await api.post("/studio/resumes/generate", clamped);
       setSaved(res.data);
     } catch (err) {
       setSaveError(apiErrorMessage(err, "Couldn't save. Try again."));
