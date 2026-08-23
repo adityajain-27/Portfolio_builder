@@ -67,7 +67,11 @@ export function TypingHeadline() {
   }, []);
 
   return (
-    <h1 className="font-display text-4xl font-semibold leading-[1.1] text-slate-bright sm:text-5xl">
+    // Reserve height for the full 2-line sentence up front (mobile: text-4xl @
+    // leading-1.1 → 2.475rem/line; sm+: text-5xl @ leading-1.1 → 3.3rem/line).
+    // Without this, the h1 wraps from 1 line to 2 lines mid-type and everything
+    // below it (paragraph, CTA buttons, stats row) visibly jumps up/down.
+    <h1 className="min-h-[4.95rem] font-display text-4xl font-semibold leading-[1.1] text-slate-bright sm:min-h-[6.6rem] sm:text-5xl">
       {PRE.slice(0, preCount)}
       <AnimatePresence>
         {typesetShown && (
