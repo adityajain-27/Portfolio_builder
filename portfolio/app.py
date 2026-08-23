@@ -265,6 +265,7 @@ def static_files(filename):
 # =============================================================================
 
 if __name__ == "__main__":
-    print("\n  PortGen — AI-Assisted Resume Portfolio Generator")
-    print("  Open http://localhost:5000 in your browser\n")
-    app.run(debug=False, port=5000)
+    port = int(os.getenv("PORT", 5000))
+    print(f"\n  PortGen — AI-Assisted Resume Portfolio Generator")
+    print(f"  Open http://localhost:{port} in your browser\n")
+    app.run(debug=False, host="0.0.0.0", port=port)
