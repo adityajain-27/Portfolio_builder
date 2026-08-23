@@ -1,10 +1,34 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, Loader2, Download, ExternalLink, FileCheck2 } from "lucide-react";
+import { Sparkles, Loader2, Download, ExternalLink, FileCheck2, FileText, ArrowLeft } from "lucide-react";
 import type { ResumeData } from "@/types/resume";
+import { clampResumeToLimits } from "@/types/resume";
 import { api, apiErrorMessage } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import { ResumeWizardForm } from "@/components/wizard/ResumeWizardForm";
+
+function GuestTopbar() {
+  const navigate = useNavigate();
+  return (
+    <header className="sticky top-0 z-20 bg-canvas/90 backdrop-blur-sm">
+      <div className="h-[3px] w-full bg-gradient-to-r from-cobalt via-cobalt-soft to-gold" />
+      <div className="flex items-center justify-between border-b border-ink-line px-6 py-4 sm:px-10">
+        <div className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright">
+          <FileText size={18} className="text-cobalt" />
+          SkillCred
+        </div>
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-1.5 rounded-full border border-ink-line bg-white px-3.5 py-2 text-xs font-medium text-slate transition-colors hover:border-cobalt/30 hover:text-slate-bright"
+        >
+          <ArrowLeft size={14} />
+          Back to home
+        </button>
+      </div>
+    </header>
+  );
+}
 
 export function GuestWizardPage() {
   const [submitting, setSubmitting] = useState(false);
@@ -15,7 +39,10 @@ export function GuestWizardPage() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await api.post("/studio/generate", data);
+      // Fields may be over the soft advisory limit at this point (the wizard
+      // only warns, never blocks). Clamp to the backend's hard max_length
+      // right here at the submission boundary so generation never fails.
+      const res = await api.post("/studio/generate", clampResumeToLimits(data));
       setResult(res.data);
     } catch (err) {
       setSubmitError(apiErrorMessage(err, "Couldn't generate the document. Try again."));
@@ -27,20 +54,23 @@ export function GuestWizardPage() {
   if (result) return <GuestResult result={result} onStartOver={() => window.location.reload()} />;
 
   return (
-    <ResumeWizardForm
-      eyebrow="Guest Build · Nothing is saved"
-      heading="Build your resume"
-      reviewNote="Everything looks good? Generating creates the document — nothing from this form is stored anywhere."
-      renderReviewAction={(data) => (
-        <div className="space-y-3">
-          {submitError && <p className="text-sm text-danger">{submitError}</p>}
-          <Button onClick={() => handleGenerate(data)} disabled={submitting} size="lg">
-            {submitting ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-            {submitting ? "Generating..." : "Generate resume"}
-          </Button>
-        </div>
-      )}
-    />
+    <div className="min-h-screen">
+      <GuestTopbar />
+      <ResumeWizardForm
+        eyebrow="Guest Build · Nothing is saved"
+        heading="Build your resume"
+        reviewNote="Everything looks good? Generating creates the document — nothing from this form is stored anywhere."
+        renderReviewAction={(data) => (
+          <div className="space-y-3">
+            {submitError && <p className="text-sm text-danger">{submitError}</p>}
+            <Button onClick={() => handleGenerate(data)} disabled={submitting} size="lg">
+              {submitting ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+              {submitting ? "Generating..." : "Generate resume"}
+            </Button>
+          </div>
+        )}
+      />
+    </div>
   );
 }
 
