@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FileEdit, UserCircle2, ArrowRight, ArrowLeft, ShieldOff, Save } from "lucide-react";
+import { FileEdit, UserCircle2, ArrowRight, ArrowLeft, ShieldOff, Save, FileText } from "lucide-react";
 
 const PATHS = [
   {
@@ -30,15 +30,26 @@ export function StudioEntryPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
-      <motion.button
-        initial={{ opacity: 0, x: -8 }}
-        animate={{ opacity: 1, x: 0 }}
-        onClick={() => navigate("/")}
-        className="absolute left-6 top-6 flex items-center gap-1.5 rounded-full border border-ink-line bg-white px-3.5 py-2 text-xs font-medium text-slate transition-colors hover:border-cobalt/30 hover:text-slate-bright sm:left-10 sm:top-10"
-      >
-        <ArrowLeft size={14} />
-        Back to home
-      </motion.button>
+      <div className="absolute left-6 top-6 right-6 flex items-center justify-between sm:left-10 sm:top-10 sm:right-10">
+        <motion.button
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          onClick={() => navigate("/")}
+          className="flex items-center gap-1.5 rounded-full border border-ink-line bg-white px-3.5 py-2 text-xs font-medium text-slate transition-colors hover:border-cobalt/30 hover:text-slate-bright"
+        >
+          <ArrowLeft size={14} />
+          Back to home
+        </motion.button>
+
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-2 font-display text-base font-semibold text-slate-bright"
+        >
+          <FileText size={17} className="text-cobalt" />
+          Folio
+        </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
