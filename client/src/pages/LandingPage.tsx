@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -12,9 +13,11 @@ import {
   ListChecks,
   Lock,
 } from "lucide-react";
+import { GateModal } from "@/components/GateModal";
 import { Button } from "@/components/ui/Button";
+import { useGateStore } from "@/store/gateStore";
 import { FloatingBlobs } from "@/components/landing/FloatingBlobs";
-import { Hero3DStack } from "@/components/landing/Hero3DStack";
+import { EnvelopeReveal } from "@/components/landing/EnvelopeReveal";
 import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
 import { WhatsInside } from "@/components/landing/WhatsInside";
 import { TemplateGallery } from "@/components/landing/TemplateGallery";
@@ -29,10 +32,18 @@ const FACTS = [
 ];
 
 export function LandingPage() {
+  const [gateOpen, setGateOpen] = useState(false);
+  const [intendedPath, setIntendedPath] = useState<string>("/enter");
+  const unlocked = useGateStore((s) => s.isUnlocked());
   const navigate = useNavigate();
 
   function goTo(path: string) {
-    navigate(path);
+    if (unlocked) {
+      navigate(path);
+    } else {
+      setIntendedPath(path);
+      setGateOpen(true);
+    }
   }
 
   return (
@@ -42,7 +53,7 @@ export function LandingPage() {
       <header className="relative z-20 flex items-center justify-between px-6 py-6 sm:px-10">
         <div className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright">
           <FileText size={18} className="text-cobalt" />
-          SkillCred
+          Folio
         </div>
         <div className="flex items-center gap-2.5">
           <Button variant="ghost" size="sm" onClick={() => goTo("/guest/build")} className="hidden sm:inline-flex">
@@ -106,7 +117,7 @@ export function LandingPage() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <Button size="lg" onClick={() => goTo("/enter")}>
-              Build your resume <ArrowRight size={16} />
+              Enter the studio <ArrowRight size={16} />
             </Button>
             <Button size="lg" variant="outline" onClick={() => goTo("/guest/build")}>
               Try without an account
@@ -136,7 +147,7 @@ export function LandingPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <Hero3DStack />
+          <EnvelopeReveal />
         </motion.div>
       </main>
 
@@ -149,8 +160,17 @@ export function LandingPage() {
       <FinalCTA onEnter={() => goTo("/enter")} onGuest={() => goTo("/guest/build")} />
 
       <footer className="relative z-10 border-t border-ink-line px-6 py-8 text-center text-xs text-slate sm:px-10">
-        SkillCred — private resume studio.
+        Folio — private resume studio.
       </footer>
+
+      <GateModal
+        open={gateOpen}
+        onClose={() => setGateOpen(false)}
+        onUnlocked={() => {
+          setGateOpen(false);
+          navigate(intendedPath);
+        }}
+      />
     </div>
   );
 }

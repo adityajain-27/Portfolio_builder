@@ -14,7 +14,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
       >
         <div className="mb-8 flex items-center justify-center gap-2 font-display text-lg font-semibold text-slate-bright">
           <FileText size={18} className="text-cobalt" />
-          SkillCred
+          Folio
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-ink-line bg-white shadow-card">

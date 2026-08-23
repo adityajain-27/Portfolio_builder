@@ -152,7 +152,7 @@ export function LivePreview({ data }: { data: ResumeData }) {
         <div className="paper-surface relative mx-auto min-h-[1000px] w-full max-w-[720px] overflow-hidden rounded-sm p-10 font-doc text-[13px] leading-relaxed text-ink/85 sm:p-14">
           <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
             <span className="rotate-[-22deg] select-none whitespace-nowrap font-display text-[70px] font-semibold text-ink/[0.025] sm:text-[100px]">
-              SKILLCRED
+              FOLIO
             </span>
           </div>
 

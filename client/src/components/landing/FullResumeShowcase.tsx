@@ -85,7 +85,7 @@ export function FullResumeShowcase() {
           <div className="paper-surface relative mx-auto w-full max-w-[760px] overflow-hidden rounded-sm p-10 font-doc text-[13px] leading-relaxed text-ink/85 sm:p-14">
             <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
               <span className="rotate-[-22deg] select-none whitespace-nowrap font-display text-[90px] font-semibold text-ink/[0.025] sm:text-[130px]">
-                SKILLCRED
+                FOLIO
               </span>
             </div>
 

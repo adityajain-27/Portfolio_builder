@@ -10,7 +10,7 @@ export function DashboardTopbar() {
     <header className="flex items-center justify-between border-b border-ink-line px-6 py-5 sm:px-10">
       <div className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright">
         <FileText size={18} className="text-cobalt" />
-        SkillCred
+        Folio
       </div>
       <div className="flex items-center gap-4">
         <span className="hidden text-sm text-slate sm:inline">{user?.email}</span>
