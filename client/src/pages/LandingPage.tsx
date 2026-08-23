@@ -101,7 +101,7 @@ export function LandingPage() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <Button size="lg" onClick={() => goTo("/enter")}>
-              Enter the studio <ArrowRight size={16} />
+              Build your resume <ArrowRight size={16} />
             </Button>
             <Button size="lg" variant="outline" onClick={() => goTo("/guest/build")}>
               Try without an account

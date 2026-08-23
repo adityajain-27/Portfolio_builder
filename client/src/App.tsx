@@ -17,9 +17,6 @@ export default function App() {
         <Route path="/enter" element={<StudioEntryPage />} />
         <Route path="/guest/build" element={<GuestWizardPage />} />
 
-        <Route path="/enter" element={<StudioEntryPage />} />
-        <Route path="/guest/build" element={<GuestWizardPage />} />
-
         <Route path="/auth" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
 
