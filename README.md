@@ -1,8 +1,77 @@
-# SkillCred
+# PortGen
+
+### AI-Assisted Resume to Portfolio Generator
+
+**PortGen transforms traditional resumes into professional, web-ready portfolios using AI.**
+
+Upload or paste your resume, and PortGen uses **Google Gemini** to extract and structure your information into a responsive portfolio featuring your **skills, experience, projects, education, and certifications**.
+
+The generated portfolio can also be **downloaded as a self-contained HTML file**, ready to use and share.
+
+![PortGen Preview](docs/screenshots/portgen_hero.jpeg)
+
+## From Resume to Portfolio
+
+PortGen transforms resume content into a complete digital portfolio through a streamlined AI-powered workflow:
+
+![From Resume to Portfolio](docs/screenshots/portgen_doing.jpeg)
+
+### The Pipeline
+
+```text
+Resume Input
+     ↓
+Text Cleaning & Validation
+     ↓
+AI-Powered Resume Parsing
+     ↓
+Structured JSON Generation
+     ↓
+Dynamic Portfolio Rendering
+     ↓
+Self-Contained HTML Export
+```
+
+* **Resume Input** — Upload a `.txt` resume or paste the content directly.
+
+* **Text Cleaning & Validation** — Removes formatting noise, normalizes the input, and validates the resume before processing.
+
+* **AI-Powered Resume Parsing** — Google Gemini analyzes the resume using a predefined schema and extracts only the available professional information.
+
+* **Structured JSON Generation** — Extracted details are organized into consistent, portfolio-ready JSON covering personal information, skills, experience, projects, education, and certifications.
+
+* **Dynamic Portfolio Rendering** — The structured data is mapped into dedicated portfolio sections and rendered automatically.
+
+* **Self-Contained HTML Export** — The final portfolio bundles its data, CSS, and JavaScript into a standalone `.html` file that can be downloaded and opened independently.
+
+### API Reference
+
+| Method | Endpoint      | Purpose                                                          |
+| ------ | ------------- | ---------------------------------------------------------------- |
+| `GET`  | `/`           | Opens the resume upload interface                                |
+| `POST` | `/generate`   | Processes resume content with Gemini and returns structured JSON |
+| `GET`  | `/portfolio`  | Renders the generated portfolio                                  |
+| `GET`  | `/api/resume` | Returns the latest generated portfolio data                      |
+| `GET`  | `/download`   | Exports the portfolio as a self-contained HTML file              |
+
+---
+
+## 🔒 Unlock the Next Layer: PortGen → Folio
+
+PortGen keeps portfolio generation effortless. The **lock icon** opens a password-protected gateway to **Folio**, expanding the experience into a complete workspace for building, refining, and managing resumes and portfolios.
+
+<p align="center">
+  <img src="docs/screenshots/lock.png" width="48%" alt="PortGen secure gateway">
+  <img src="docs/screenshots/lock_next.jpeg" width="48%" alt="Folio workspace">
+</p>
+
+<p align="center"><strong>One unlock. A whole new workspace.</strong></p>
+
+## ✦ Inside Folio
 
 **Your resume, rebuilt like it means something.**
 
-SkillCred is a full-stack studio that takes you from a blank page to a polished, ATS-safe resume — and now, straight into a shareable personal portfolio site — without ever opening a design tool. Type your story in, and walk out with a document that actually looks like you spent a weekend on it in Figma.
+Folio is a full-stack studio that takes you from a blank page to a polished, ATS-safe resume — and now, straight into a shareable personal portfolio site — without ever opening a design tool. Type your story in, and walk out with a document that actually looks like you spent a weekend on it in Figma.
 
 ---
 
@@ -14,7 +83,7 @@ A private studio for building resumes that read like they were laid out by hand 
 
 ---
 
-## ✦ What SkillCred Actually Does
+## ✦ What Folio Actually Does
 
 ### 1. Resume Studio
 A guided, form-driven resume builder with a real design system behind it — not another Bootstrap template.
@@ -110,7 +179,22 @@ skillcred/
 │           └── portfolio_template.html
 │   └── static/portfolio/         # style.css / script.js inlined into every generated portfolio
 │
-└── portfolio/                    # Original standalone Flask prototype (superseded by server/portfolio.py)
+├── portfolio/                           # PortGen: original Flask prototype
+│   ├── app.py                           # Flask backend & API routes
+│   ├── promp.py                         # Gemini resume-parsing prompt + JSON schema
+│   ├── requirements.txt                 # Python dependencies
+│   ├── templates.html                   # Dynamic portfolio viewer
+│   │
+│   ├── templates/
+│   │   └── index.html                   # Resume upload / paste interface
+│   │
+│   └── static/
+│       ├── style.css                     # Generated portfolio styling
+│       ├── script.js                     # Portfolio data rendering
+│       ├── upload.css                    # Upload interface styling
+│       └── upload.js                     # Upload / generation interactions
+│
+└── README.md                            # Project documentation
 ```
 
 ---
