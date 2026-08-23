@@ -1,20 +1,15 @@
 import axios from "axios";
 import { useAuthStore } from "@/store/authStore";
-import { useGateStore } from "@/store/gateStore";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
 
 export const api = axios.create({ baseURL: BASE_URL });
 
-// Attaches whichever token is relevant: user JWT takes priority (logged-in
-// resume generation/save), otherwise the studio gate token (guest generation).
 api.interceptors.request.use((config) => {
   const userToken = useAuthStore.getState().token;
-  const gateToken = useGateStore.getState().gateToken;
-  const token = userToken || gateToken;
-  if (token) {
+  if (userToken) {
     config.headers = config.headers || {};
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${userToken}`;
   }
   return config;
 });
@@ -22,10 +17,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
-      // Stale token: clear whichever store owns it so the UI can re-prompt.
-      if (useAuthStore.getState().token) useAuthStore.getState().logout();
-      if (useGateStore.getState().gateToken) useGateStore.getState().clearGate();
+    if (err.response?.status === 401 && useAuthStore.getState().token) {
+      useAuthStore.getState().logout();
     }
     return Promise.reject(err);
   }

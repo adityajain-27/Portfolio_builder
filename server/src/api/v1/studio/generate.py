@@ -5,7 +5,10 @@ from src.integrations.apps_script import generate_resume_document, AppsScriptErr
 router = APIRouter()
 
 
-@router.post("/generate", response_model=GenerateResumeResponse)
+@router.post(
+    "/generate",
+    response_model=GenerateResumeResponse,
+)
 async def generate_resume(resume: ResumeData):
     # Guest flow: nothing is persisted anywhere. The payload goes to the Apps
     # Script, we hand back the links, and this server forgets about it.
