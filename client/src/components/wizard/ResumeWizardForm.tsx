@@ -66,7 +66,7 @@ export function ResumeWizardForm({ initialData, eyebrow, heading, reviewNote, re
         <p className="eyebrow mb-2">{eyebrow}</p>
         <h1 className="mb-8 font-display text-2xl font-semibold text-slate-bright">{heading}</h1>
 
-        <WizardProgress step={step} total={STEP_LABELS.length} labels={STEP_LABELS} />
+        <WizardProgress step={step} total={STEP_LABELS.length} labels={STEP_LABELS} onStepClick={(i) => setStep(i)} />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -210,16 +210,16 @@ export function ResumeWizardForm({ initialData, eyebrow, heading, reviewNote, re
           </motion.div>
         </AnimatePresence>
 
-        {step < 6 && (
-          <div className="mt-8 flex items-center justify-between">
-            <Button variant="ghost" onClick={goBack} disabled={step === 0}>
-              <ArrowLeft size={15} /> Back
-            </Button>
+        <div className="mt-8 flex items-center justify-between">
+          <Button variant="ghost" onClick={goBack} disabled={step === 0}>
+            <ArrowLeft size={15} /> Back
+          </Button>
+          {step < 6 && (
             <Button onClick={goNext}>
               Next <ArrowRight size={15} />
             </Button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <div className="hidden lg:block">

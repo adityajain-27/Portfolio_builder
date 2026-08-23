@@ -37,7 +37,7 @@ export function StudioEntryPage() {
           className="flex items-center gap-2 font-display text-lg font-semibold text-slate-bright"
         >
           <FileText size={18} className="text-cobalt" />
-          SkillCred
+          Folio
         </motion.div>
 
         <motion.button
