@@ -118,13 +118,18 @@ Turn that same story into a standalone, self-contained portfolio website — one
 
 ## ✦ Tech Stack
 
-| Layer | Stack |
+| **Layer** | **Stack** |
 |---|---|
-| **Frontend** | React 18 + TypeScript, Vite, Tailwind CSS, Framer Motion, Zustand, React Hook Form + Zod, React Router |
-| **Backend** | FastAPI (async), Motor (async MongoDB), PyJWT, Passlib/bcrypt |
-| **AI** | Google Gemini (`google-genai`) — resume-to-portfolio parsing |
-| **Document generation** | Google Apps Script — structured data → Google Doc / PDF |
+| **Frontend — Folio** | React 18 + TypeScript, Vite, Tailwind CSS, Framer Motion, Zustand, React Hook Form + Zod, React Router |
+| **Frontend — PortGen** | HTML5, CSS3, JavaScript |
+| **Backend — Folio** | FastAPI (async), Motor (async MongoDB), PyJWT, Passlib/bcrypt |
+| **Backend — PortGen** | Python, Flask, Flask-CORS |
+| **AI** | Google Gemini (`google-genai`) — resume parsing & portfolio data generation |
+| **Document Generation** | Google Apps Script — structured data → Google Doc / PDF |
+| **Portfolio Generation** | Structured JSON → dynamic portfolio → self-contained HTML export |
 | **Database** | MongoDB |
+| **Configuration** | `python-dotenv` |
+| **Production Server — PortGen** | Gunicorn |
 
 ---
 
