@@ -4,6 +4,7 @@ python-dotenv
 google-genai
 google-auth
 pydantic
+pydantic[email]
 pydantic-settings
 motor
 dnspython
