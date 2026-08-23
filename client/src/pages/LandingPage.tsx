@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -13,9 +12,7 @@ import {
   ListChecks,
   Lock,
 } from "lucide-react";
-import { GateModal } from "@/components/GateModal";
 import { Button } from "@/components/ui/Button";
-import { useGateStore } from "@/store/gateStore";
 import { FloatingBlobs } from "@/components/landing/FloatingBlobs";
 import { Hero3DStack } from "@/components/landing/Hero3DStack";
 import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
@@ -32,18 +29,10 @@ const FACTS = [
 ];
 
 export function LandingPage() {
-  const [gateOpen, setGateOpen] = useState(false);
-  const [intendedPath, setIntendedPath] = useState<string>("/enter");
-  const unlocked = useGateStore((s) => s.isUnlocked());
   const navigate = useNavigate();
 
   function goTo(path: string) {
-    if (unlocked) {
-      navigate(path);
-    } else {
-      setIntendedPath(path);
-      setGateOpen(true);
-    }
+    navigate(path);
   }
 
   return (
@@ -117,7 +106,7 @@ export function LandingPage() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <Button size="lg" onClick={() => goTo("/enter")}>
-              Enter the studio <ArrowRight size={16} />
+              Build your resume <ArrowRight size={16} />
             </Button>
             <Button size="lg" variant="outline" onClick={() => goTo("/guest/build")}>
               Try without an account
@@ -162,15 +151,6 @@ export function LandingPage() {
       <footer className="relative z-10 border-t border-ink-line px-6 py-8 text-center text-xs text-slate sm:px-10">
         SkillCred — private resume studio.
       </footer>
-
-      <GateModal
-        open={gateOpen}
-        onClose={() => setGateOpen(false)}
-        onUnlocked={() => {
-          setGateOpen(false);
-          navigate(intendedPath);
-        }}
-      />
     </div>
   );
 }

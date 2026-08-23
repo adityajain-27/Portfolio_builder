@@ -22,7 +22,7 @@ export function FinalCTA({ onEnter, onGuest }: { onEnter: () => void; onGuest: (
           </h2>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Button size="lg" onClick={onEnter}>
-              Enter the studio <ArrowRight size={16} />
+              Build your resume <ArrowRight size={16} />
             </Button>
             <Button size="lg" variant="outline" onClick={onGuest} className="border-white/20 text-white hover:border-white/40 hover:bg-white/5">
               <FileEdit size={15} /> Try without an account
